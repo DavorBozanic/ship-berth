@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipBerth.WebAPI", "ShipBerth.WebAPI\ShipBerth.WebAPI.csproj", "{BACFF451-4030-4507-9219-5E99FF5F7DE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipBerth.Domain", "ShipBerth.Domain\ShipBerth.Domain.csproj", "{554C7A32-DAE3-4F74-854B-3A044F6934C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipBerth.Application", "ShipBerth.Application\ShipBerth.Application.csproj", "{47C7B545-EE05-4BF1-BA32-B91226FBFCAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipBerth.Infrastructure", "ShipBerth.Infrastructure\ShipBerth.Infrastructure.csproj", "{0D9F5646-0CEF-45CE-8168-22D419922E43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipBerth.Test", "ShipBerth.Test\ShipBerth.Test.csproj", "{18AF7620-F2FC-4810-BDC3-53705B50D606}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BACFF451-4030-4507-9219-5E99FF5F7DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BACFF451-4030-4507-9219-5E99FF5F7DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BACFF451-4030-4507-9219-5E99FF5F7DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BACFF451-4030-4507-9219-5E99FF5F7DE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{554C7A32-DAE3-4F74-854B-3A044F6934C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{554C7A32-DAE3-4F74-854B-3A044F6934C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{554C7A32-DAE3-4F74-854B-3A044F6934C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{554C7A32-DAE3-4F74-854B-3A044F6934C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C7B545-EE05-4BF1-BA32-B91226FBFCAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C7B545-EE05-4BF1-BA32-B91226FBFCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C7B545-EE05-4BF1-BA32-B91226FBFCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C7B545-EE05-4BF1-BA32-B91226FBFCAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9F5646-0CEF-45CE-8168-22D419922E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9F5646-0CEF-45CE-8168-22D419922E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9F5646-0CEF-45CE-8168-22D419922E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9F5646-0CEF-45CE-8168-22D419922E43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18AF7620-F2FC-4810-BDC3-53705B50D606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18AF7620-F2FC-4810-BDC3-53705B50D606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18AF7620-F2FC-4810-BDC3-53705B50D606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18AF7620-F2FC-4810-BDC3-53705B50D606}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EFFCEF7-F605-48D4-94E3-67FA79E80118}
+	EndGlobalSection
+EndGlobal
