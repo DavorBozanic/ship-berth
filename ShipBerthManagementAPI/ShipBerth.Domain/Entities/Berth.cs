@@ -3,14 +3,15 @@
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
 using ShipBerth.Domain.Entities.Common;
+using ShipBerth.Domain.Enums;
 
 namespace ShipBerth.Domain.Entities
 {
     /// <summary>
-    /// Ship class.
+    /// Berth class.
     /// </summary>
     /// <seealso cref="BaseEntity" />
-    public class Ship : BaseEntity
+    public class Berth : BaseEntity
     {
         /// <summary>
         /// Gets or sets the name.
@@ -21,35 +22,27 @@ namespace ShipBerth.Domain.Entities
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the size.
+        /// Gets or sets the location.
         /// </summary>
         /// <value>
-        /// The size.
+        /// The location.
         /// </value>
-        public decimal Size { get; set; }
+        public string Location { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the type.
+        /// Gets or sets the maximum meters size of the ship.
         /// </summary>
         /// <value>
-        /// The type.
+        /// The maximum size of the ship.
         /// </value>
-        public string Type { get; set; } = string.Empty;
+        public int MaxMetersShipSize { get; set; }
 
         /// <summary>
-        /// Gets or sets the docking records.
+        /// Gets or sets the status.
         /// </summary>
         /// <value>
-        /// The docking records.
+        /// The status.
         /// </value>
-        public ICollection<DockingRecord> DockingRecords { get; set; } = new List<DockingRecord>();
-
-        /// <summary>
-        /// Gets or sets the reservations.
-        /// </summary>
-        /// <value>
-        /// The reservations.
-        /// </value>
-        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public BerthStatus Status { get; set; }
     }
 }

@@ -2,46 +2,43 @@
 // CONFIDENTIAL; Property of Maritime Center of Excellence d.o.o.
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
-using ShipBerth.Domain.Entities.Common;
-
-namespace ShipBerth.Domain.Entities
+namespace ShipBerth.Domain.Entities.Common
 {
     /// <summary>
-    /// User class.
+    /// Base entity class.
     /// </summary>
-    /// <seealso cref="BaseEntity" />
-    public class User : BaseEntity
+    public abstract class BaseEntity
     {
         /// <summary>
-        /// Gets or sets the username.
+        /// Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The username.
+        /// The identifier.
         /// </value>
-        public string Username { get; set; } = string.Empty;
+        public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
+        /// Gets or sets the created at.
         /// </summary>
         /// <value>
-        /// The email.
+        /// The created at.
         /// </value>
-        public string Email { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         /// <summary>
-        /// Gets or sets the password hash.
+        /// Gets or sets the updated at.
         /// </summary>
         /// <value>
-        /// The password hash.
+        /// The updated at.
         /// </value>
-        public string PasswordHash { get; set; } = string.Empty;
+        public DateTime? UpdatedAt { get; set; }
 
         /// <summary>
-        /// Gets or sets the role.
+        /// Gets or sets a value indicating whether this instance is deleted.
         /// </summary>
         /// <value>
-        /// The role.
+        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        public string Role { get; set; } = "User";
+        public bool IsDeleted { get; set; }
     }
 }

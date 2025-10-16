@@ -7,41 +7,33 @@ using ShipBerth.Domain.Entities.Common;
 namespace ShipBerth.Domain.Entities
 {
     /// <summary>
-    /// User class.
+    /// Reservation class.
     /// </summary>
     /// <seealso cref="BaseEntity" />
-    public class User : BaseEntity
+    public class Reservation : BaseEntity
     {
         /// <summary>
-        /// Gets or sets the username.
+        /// Gets or sets the berth identifier.
         /// </summary>
         /// <value>
-        /// The username.
+        /// The berth identifier.
         /// </value>
-        public string Username { get; set; } = string.Empty;
+        public int BerthId { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
+        /// Gets or sets the ship identifier.
         /// </summary>
         /// <value>
-        /// The email.
+        /// The ship identifier.
         /// </value>
-        public string Email { get; set; } = string.Empty;
+        public int ShipId { get; set; }
 
         /// <summary>
-        /// Gets or sets the password hash.
+        /// Gets or sets the user identifier.
         /// </summary>
         /// <value>
-        /// The password hash.
+        /// The user identifier.
         /// </value>
-        public string PasswordHash { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the role.
-        /// </summary>
-        /// <value>
-        /// The role.
-        /// </value>
-        public string Role { get; set; } = "User";
+        public int UserId { get; set; }
     }
 }
