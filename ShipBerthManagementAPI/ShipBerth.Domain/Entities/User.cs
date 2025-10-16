@@ -43,5 +43,21 @@ namespace ShipBerth.Domain.Entities
         /// The role.
         /// </value>
         public string Role { get; set; } = "User";
+
+        /// <summary>
+        /// Gets or sets the docking records.
+        /// </summary>
+        /// <value>
+        /// The docking records.
+        /// </value>
+        public ICollection<DockingRecord> DockingRecords { get; set; } = new List<DockingRecord>();
+
+        /// <summary>
+        /// Gets or sets the reservations.
+        /// </summary>
+        /// <value>
+        /// The reservations.
+        /// </value>
+        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

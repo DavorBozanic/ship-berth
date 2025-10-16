@@ -2,43 +2,43 @@
 // CONFIDENTIAL; Property of Maritime Center of Excellence d.o.o.
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
-namespace ShipBerth.Domain.Entities.Common
+namespace ShipBerth.Application.DTOs
 {
     /// <summary>
-    /// Base entity class.
+    /// Register response DTO.
     /// </summary>
-    public abstract class BaseEntity
+    public class RegisterResponseDTO
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets a value indicating whether this <see cref="RegisterResponseDTO"/> is success.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///   <c>true</c> if success; otherwise, <c>false</c>.
         /// </value>
-        public int Id { get; set; }
+        public bool Success { get; set; }
 
         /// <summary>
-        /// Gets or sets the created at.
+        /// Gets or sets the message.
         /// </summary>
         /// <value>
-        /// The created at.
+        /// The message.
         /// </value>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string Message { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the updated at.
+        /// Gets or sets the username.
         /// </summary>
         /// <value>
-        /// The updated at.
+        /// The username.
         /// </value>
-        public DateTime? UpdatedAt { get; set; }
+        public string Username { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted.
+        /// Gets or sets the user identifier.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
+        /// The user identifier.
         /// </value>
-        public bool IsDeleted { get; set; } = false;
+        public int UserId { get; set; }
     }
 }

@@ -2,12 +2,12 @@
 // CONFIDENTIAL; Property of Maritime Center of Excellence d.o.o.
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
-namespace ShipBerth.Domain.Entities.Common
+namespace ShipBerth.Application.DTOs
 {
     /// <summary>
-    /// Base entity class.
+    /// Base DTO class.
     /// </summary>
-    public abstract class BaseEntity
+    public abstract class BaseDto
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -23,7 +23,7 @@ namespace ShipBerth.Domain.Entities.Common
         /// <value>
         /// The created at.
         /// </value>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the updated at.
@@ -32,13 +32,5 @@ namespace ShipBerth.Domain.Entities.Common
         /// The updated at.
         /// </value>
         public DateTime? UpdatedAt { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsDeleted { get; set; } = false;
     }
 }

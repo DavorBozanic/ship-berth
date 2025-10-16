@@ -2,43 +2,43 @@
 // CONFIDENTIAL; Property of Maritime Center of Excellence d.o.o.
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
-namespace ShipBerth.Domain.Entities.Common
+namespace ShipBerth.Application.DTOs
 {
     /// <summary>
-    /// Base entity class.
+    /// Login response DTO.
     /// </summary>
-    public abstract class BaseEntity
+    public class LoginResponseDTO
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the token.
         /// </summary>
         /// <value>
-        /// The identifier.
+        /// The token.
         /// </value>
-        public int Id { get; set; }
+        public string Token { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the created at.
+        /// Gets or sets the username.
         /// </summary>
         /// <value>
-        /// The created at.
+        /// The username.
         /// </value>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string Username { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the updated at.
+        /// Gets or sets the role.
         /// </summary>
         /// <value>
-        /// The updated at.
+        /// The role.
         /// </value>
-        public DateTime? UpdatedAt { get; set; }
+        public string Role { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted.
+        /// Gets or sets the user identifier.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
+        /// The user identifier.
         /// </value>
-        public bool IsDeleted { get; set; } = false;
+        public int UserId { get; set; }
     }
 }
