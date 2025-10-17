@@ -12,20 +12,21 @@ namespace ShipBerth.Application.Interfaces
     public interface IReservationRepository
     {
         /// <summary>
-        /// Gets the by identifier asynchronously.
+        /// Gets the reservation by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         Task<Reservation?> GetByIdAsync(int id);
+
         /// <summary>
-        /// Gets the user reservations asynchronous.
+        /// Gets the user reservations asynchronously.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
         Task<List<Reservation>> GetUserReservationsAsync(int userId);
 
         /// <summary>
-        /// Gets the reservations for berth asynchronous.
+        /// Gets the reservations for berth asynchronously.
         /// </summary>
         /// <param name="berthId">The berth identifier.</param>
         /// <param name="start">The start.</param>
@@ -34,14 +35,28 @@ namespace ShipBerth.Application.Interfaces
         Task<List<Reservation>> GetReservationsForBerthAsync(int berthId, DateTime start, DateTime end);
 
         /// <summary>
-        /// Adds the reservation asynchronous.
+        /// Adds the reservation asynchronously.
         /// </summary>
         /// <param name="reservation">The reservation.</param>
         /// <returns></returns>
         Task AddReservationAsync(Reservation reservation);
 
         /// <summary>
-        /// Saves the changes asynchronous.
+        /// Updates the reservation asynchronously.
+        /// </summary>
+        /// <param name="reservation">The reservation.</param>
+        /// <returns></returns>
+        Task UpdateReservationAsync(Reservation reservation);
+
+        /// <summary>
+        /// Deletes the reservation asynchronously.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        Task DeleteReservationAsync(int id);
+
+        /// <summary>
+        /// Saves the changes asynchronously.
         /// </summary>
         /// <returns></returns>
         Task SaveChangesAsync();

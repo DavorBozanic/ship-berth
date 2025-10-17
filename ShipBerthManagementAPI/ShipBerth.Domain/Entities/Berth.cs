@@ -30,12 +30,12 @@ namespace ShipBerth.Domain.Entities
         public string Location { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the maximum meters size of the ship.
+        /// Gets or sets the maximum size of the ship.
         /// </summary>
         /// <value>
         /// The maximum size of the ship.
         /// </value>
-        public int MaxMetersShipSize { get; set; }
+        public int MaxShipSize { get; set; }
 
         /// <summary>
         /// Gets or sets the status.
@@ -44,5 +44,21 @@ namespace ShipBerth.Domain.Entities
         /// The status.
         /// </value>
         public BerthStatus Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the docking records.
+        /// </summary>
+        /// <value>
+        /// The docking records.
+        /// </value>
+        public ICollection<DockingRecord> DockingRecords { get; set; } = new List<DockingRecord>();
+
+        /// <summary>
+        /// Gets or sets the reservations.
+        /// </summary>
+        /// <value>
+        /// The reservations.
+        /// </value>
+        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

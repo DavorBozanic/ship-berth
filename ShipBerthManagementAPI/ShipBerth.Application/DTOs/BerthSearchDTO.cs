@@ -5,32 +5,32 @@
 namespace ShipBerth.Application.DTOs
 {
     /// <summary>
-    /// Register request DTO.
+    /// Berth search DTO.
     /// </summary>
-    public class RegisterRequestDTO
+    public class BerthSearchDTO
     {
         /// <summary>
-        /// Gets or sets the username.
+        /// Gets or sets the location.
         /// </summary>
         /// <value>
-        /// The username.
+        /// The location.
         /// </value>
-        public string Username { get; set; } = string.Empty;
+        public string? Location { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
+        /// Gets or sets the minimum size.
         /// </summary>
         /// <value>
-        /// The email.
+        /// The minimum size.
         /// </value>
-        public string Email { get; set; } = string.Empty;
+        public int? MinSize { get; set; }
 
         /// <summary>
-        /// Gets or sets the password.
+        /// Gets or sets the status.
         /// </summary>
         /// <value>
-        /// The password.
+        /// The status.
         /// </value>
-        public string Password { get; set; } = string.Empty;
+        public string? Status { get; set; }
     }
 }

@@ -5,40 +5,41 @@
 namespace ShipBerth.Application.DTOs
 {
     /// <summary>
-    /// Base DTO.
+    /// Berth DTO.
     /// </summary>
-    public abstract class BaseDTO
+    /// <seealso cref="BaseDTO" />
+    public class BerthDTO : BaseDTO
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The identifier.
+        /// The name.
         /// </value>
-        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the created at.
+        /// Gets or sets the location.
         /// </summary>
         /// <value>
-        /// The created at.
+        /// The location.
         /// </value>
-        public DateTime CreatedAt { get; set; }
+        public string Location { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the updated at.
+        /// Gets or sets the maximum size of the ship.
         /// </summary>
         /// <value>
-        /// The updated at.
+        /// The maximum size of the ship.
         /// </value>
-        public DateTime? UpdatedAt { get; set; }
+        public int MaxShipSize { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted.
+        /// Gets or sets the status.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
+        /// The status.
         /// </value>
-        public bool IsDeleted { get; set; }
+        public string Status { get; set; } = string.Empty;
     }
 }

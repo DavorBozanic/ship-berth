@@ -5,40 +5,40 @@
 namespace ShipBerth.Application.DTOs
 {
     /// <summary>
-    /// Base DTO.
+    /// Reservation request DTO.
     /// </summary>
-    public abstract class BaseDTO
+    public class ReservationRequestDTO
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the berth identifier.
         /// </summary>
         /// <value>
-        /// The identifier.
+        /// The berth identifier.
         /// </value>
-        public int Id { get; set; }
+        public int BerthId { get; set; }
 
         /// <summary>
-        /// Gets or sets the created at.
+        /// Gets or sets the ship identifier.
         /// </summary>
         /// <value>
-        /// The created at.
+        /// The ship identifier.
         /// </value>
-        public DateTime CreatedAt { get; set; }
+        public int ShipId { get; set; }
 
         /// <summary>
-        /// Gets or sets the updated at.
+        /// Gets or sets the scheduled arrival.
         /// </summary>
         /// <value>
-        /// The updated at.
+        /// The scheduled arrival.
         /// </value>
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime ScheduledArrival { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted.
+        /// Gets or sets the scheduled departure.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
+        /// The scheduled departure.
         /// </value>
-        public bool IsDeleted { get; set; }
+        public DateTime ScheduledDeparture { get; set; }
     }
 }

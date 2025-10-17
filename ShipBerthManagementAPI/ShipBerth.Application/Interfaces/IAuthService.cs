@@ -31,7 +31,7 @@ namespace ShipBerth.Application.Interfaces
         /// - On success: Contains user ID and confirmation message.
         /// - On failure: Contains error messages for duplicate email, weak password, etc.
         /// </returns>
-        Task<bool> RegisterAsync(RegisterRequestDTO registerRequest);
+        Task<RegisterResponseDTO> RegisterAsync(RegisterRequestDTO registerRequest);
 
         /// <summary>
         /// Checks asynchronously if user exists.

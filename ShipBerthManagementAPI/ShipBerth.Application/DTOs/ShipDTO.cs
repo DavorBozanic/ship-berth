@@ -5,32 +5,33 @@
 namespace ShipBerth.Application.DTOs
 {
     /// <summary>
-    /// Register request DTO.
+    /// Ship DTO.
     /// </summary>
-    public class RegisterRequestDTO
+    /// <seealso cref="BaseDTO" />
+    public class ShipDTO : BaseDTO
     {
         /// <summary>
-        /// Gets or sets the username.
+        /// Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The username.
+        /// The name.
         /// </value>
-        public string Username { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the email.
+        /// Gets or sets the size.
         /// </summary>
         /// <value>
-        /// The email.
+        /// The size.
         /// </value>
-        public string Email { get; set; } = string.Empty;
+        public decimal Size { get; set; }
 
         /// <summary>
-        /// Gets or sets the password.
+        /// Gets or sets the type.
         /// </summary>
         /// <value>
-        /// The password.
+        /// The type.
         /// </value>
-        public string Password { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
     }
 }
