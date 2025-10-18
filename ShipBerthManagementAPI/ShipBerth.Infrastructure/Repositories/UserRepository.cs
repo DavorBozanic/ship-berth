@@ -87,33 +87,6 @@ namespace ShipBerth.Infrastructure.Repositories
         }
 
         /// <summary>
-        /// Updates the user asynchronous.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task UpdateUserAsync(User user)
-        {
-            this.context.Users.Update(user);
-
-            await this.context.SaveChangesAsync();
-        }
-
-        /// <summary>
-        /// Deletes the user asynchronous.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task DeleteUserAsync(int id)
-        {
-            var user = await this.context.Users.FindAsync(id);
-
-            if (user != null)
-            {
-                this.context.Users.Remove(user);
-            }
-        }
-
-        /// <summary>
         /// Saves the changes asynchronously.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>

@@ -12,7 +12,7 @@ namespace ShipBerth.Application.Interfaces
     public interface IReservationService
     {
         /// <summary>
-        /// Creates the reservation asynchronous.
+        /// Creates the reservation asynchronously.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="userId">The user identifier.</param>
@@ -20,7 +20,7 @@ namespace ShipBerth.Application.Interfaces
         Task<ReservationDTO> CreateReservationAsync(ReservationRequestDTO request, int userId);
 
         /// <summary>
-        /// Cancels the reservation asynchronous.
+        /// Cancels the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
         /// <param name="userId">The user identifier.</param>
@@ -28,14 +28,14 @@ namespace ShipBerth.Application.Interfaces
         Task<bool> CancelReservationAsync(int reservationId, int userId);
 
         /// <summary>
-        /// Gets the user reservations asynchronous.
+        /// Gets the user reservations asynchronously.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
         Task<List<ReservationDTO>> GetUserReservationsAsync(int userId);
 
         /// <summary>
-        /// Gets the reservation asynchronous.
+        /// Gets the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
         /// <returns></returns>

@@ -14,9 +14,17 @@ namespace ShipBerth.Infrastructure.Data
     /// <remarks>
     /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
     /// </remarks>
-    /// <param name="options"></param>
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+    public class ApplicationDbContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
         /// <summary>
         /// Gets the users.
         /// </summary>

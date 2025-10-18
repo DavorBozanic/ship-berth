@@ -84,6 +84,47 @@ namespace ShipBerth.Infrastructure.Services
         }
 
         /// <summary>
+        /// Creates the berth asynchronously.
+        /// </summary>
+        /// <param name="berthDto">The berth dto.</param>
+        /// <returns></returns>
+        public async Task<BerthDTO> CreateBerthAsync(BerthDTO berthDto)
+        {
+            var berth = new Berth
+            {
+                Name = berthDto.Name,
+            };
+
+            await this.berthRepository.AddBerthAsync(berth);
+            await this.berthRepository.SaveChangesAsync();
+
+            return this.MapToBerthDTO(berth);
+        }
+
+        public async Task<BerthDTO> UpdateBerthAsync(int id, BerthDTO berthDto)
+        {
+            var existingBerth = await this.berthRepository.GetByIdAsync(id);
+
+            if (existingBerth == null)
+            {
+                throw new KeyNotFoundException($"Berth with ID {id} not found.");
+            }
+
+            existingBerth.Name = existingBerth.Name;
+            existingBerth.Location = existingBerth.Location;
+            existingBerth.MaxShipSize = existingBerth.MaxShipSize;
+            existingBerth.Status = existingBerth.Status;
+            existingBerth.Reservations = existingBerth.Reservations;
+            existingBerth.DockingRecords = existingBerth.DockingRecords;
+            existingBerth.UpdatedAt = DateTime.UtcNow;
+
+            await this.berthRepository.UpdateBerthAsync(existingBerth);
+            await this.berthRepository.SaveChangesAsync();
+
+            return this.MapToBerthDTO(existingBerth);
+        }
+
+        /// <summary>
         /// Determines whether [is berth available asynchronously] [the specified berth identifier].
         /// </summary>
         /// <param name="berthId">The berth identifier.</param>

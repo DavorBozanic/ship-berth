@@ -47,20 +47,6 @@ namespace ShipBerth.Application.Interfaces
         Task AddUserAsync(User user);
 
         /// <summary>
-        /// Updates the user asynchronous.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <returns></returns>
-        Task UpdateUserAsync(User user);
-
-        /// <summary>
-        /// Deletes the user asynchronous.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        Task DeleteUserAsync(int id);
-
-        /// <summary>
         /// Saves the changes asynchronously.
         /// </summary>
         /// <returns></returns>

@@ -20,6 +20,13 @@ namespace ShipBerth.Infrastructure.Services
         private readonly IShipRepository shipRepository;
         private readonly IUserRepository userRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReservationService"/> class.
+        /// </summary>
+        /// <param name="reservationRepository">The reservation repository.</param>
+        /// <param name="berthRepository">The berth repository.</param>
+        /// <param name="shipRepository">The ship repository.</param>
+        /// <param name="userRepository">The user repository.</param>
         public ReservationService(
             IReservationRepository reservationRepository,
             IBerthRepository berthRepository,
@@ -109,13 +116,13 @@ namespace ShipBerth.Infrastructure.Services
         }
 
         /// <summary>
-        /// Cancels the reservation asynchronous.
+        /// Cancels the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        /// <exception cref="System.Collections.Generic.KeyNotFoundException">Reservation with ID {reservationId} not found</exception>
-        /// <exception cref="System.UnauthorizedAccessException">You can only cancel your own reservations</exception>
+        /// <exception cref="KeyNotFoundException">Reservation with ID {reservationId} not found.</exception>
+        /// <exception cref="UnauthorizedAccessException">You can only cancel your own reservations.</exception>
         public async Task<bool> CancelReservationAsync(int reservationId, int userId)
         {
             var reservation = await this.reservationRepository.GetByIdAsync(reservationId);
@@ -149,7 +156,7 @@ namespace ShipBerth.Infrastructure.Services
         }
 
         /// <summary>
-        /// Gets the user reservations asynchronous.
+        /// Gets the user reservations asynchronously.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
@@ -161,11 +168,11 @@ namespace ShipBerth.Infrastructure.Services
         }
 
         /// <summary>
-        /// Gets the reservation asynchronous.
+        /// Gets the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
         /// <returns></returns>
-        /// <exception cref="System.Collections.Generic.KeyNotFoundException">Reservation with ID {reservationId} not found</exception>
+        /// <exception cref="KeyNotFoundException">Reservation with ID {reservationId} not found.</exception>
         public async Task<ReservationDTO> GetReservationAsync(int reservationId)
         {
             var reservation = await this.reservationRepository.GetByIdAsync(reservationId);

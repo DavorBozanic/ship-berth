@@ -90,7 +90,7 @@ namespace ShipBerth.Infrastructure.Repositories
 
             if (ship != null)
             {
-                this.context.Ships.Remove(ship);
+                ship.IsDeleted = true;
             }
         }
 

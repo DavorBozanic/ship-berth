@@ -50,6 +50,10 @@ namespace ShipBerth.Infrastructure.Repositories
             return await this.context.Berths.ToListAsync();
         }
 
+        /// <summary>
+        /// Gets the available berths asynchronously.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Berth>> GetAvailableBerthsAsync()
         {
             return await this.context.Berths
@@ -57,6 +61,13 @@ namespace ShipBerth.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Searches the berths asynchronously.
+        /// </summary>
+        /// <param name="location">The location.</param>
+        /// <param name="minSize">The minimum size.</param>
+        /// <param name="status">The status.</param>
+        /// <returns></returns>
         public async Task<List<Berth>> SearchBerthsAsync(string? location, int? minSize, string? status)
         {
             var query = this.context.Berths.AsQueryable();
