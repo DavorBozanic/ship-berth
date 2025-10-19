@@ -79,13 +79,15 @@ namespace ShipBerth.WebAPI.Controllers
                     return this.BadRequest(result);
                 }
 
+                this.logger.LogInformation("Registration successful for user: {Username}.", request.Username);
+
                 return this.Ok(result);
             }
             catch (Exception ex)
             {
-                this.logger.LogInformation("Registration successful for user: {Username}.", request.Username);
+               this.logger.LogInformation("Unexpected error during registration for user: {Username}.", request.Username);
 
-                return this.BadRequest(new { message = "An error occurred during registration.", error = ex.Message });
+               return this.BadRequest(new { message = "An error occurred during registration.", error = ex.Message });
             }
         }
     }
