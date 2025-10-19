@@ -51,29 +51,5 @@ namespace ShipBerth.Domain.Entities
         /// The scheduled departure.
         /// </value>
         public DateTime ScheduledDeparture { get; set; }
-
-        /// <summary>
-        /// Gets or sets the berth.
-        /// </summary>
-        /// <value>
-        /// The berth.
-        /// </value>
-        public Berth Berth { get; set; } = null!;
-
-        /// <summary>
-        /// Gets or sets the ship.
-        /// </summary>
-        /// <value>
-        /// The ship.
-        /// </value>
-        public Ship Ship { get; set; } = null!;
-
-        /// <summary>
-        /// Gets or sets the user.
-        /// </summary>
-        /// <value>
-        /// The user.
-        /// </value>
-        public User User { get; set; } = null!;
     }
 }

@@ -11,20 +11,28 @@ namespace ShipBerth.Application.DTOs
     public class ReservationDTO : BaseDTO
     {
         /// <summary>
-        /// Gets or sets the name of the berth.
+        /// Gets or sets the berth identifier.
         /// </summary>
         /// <value>
-        /// The name of the berth.
+        /// The berth identifier.
         /// </value>
-        public string BerthName { get; set; } = string.Empty;
+        public int BerthId { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the ship.
+        /// Gets or sets the ship identifier.
         /// </summary>
         /// <value>
-        /// The name of the ship.
+        /// The ship identifier.
         /// </value>
-        public string ShipName { get; set; } = string.Empty;
+        public int ShipId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        public int UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the scheduled arrival.

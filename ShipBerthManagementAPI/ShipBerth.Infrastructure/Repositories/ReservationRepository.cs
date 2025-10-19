@@ -33,11 +33,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <returns>Reservation.</returns>
         public async Task<Reservation?> GetByIdAsync(int id)
         {
-            return await this.context.Reservations
-                .Include(r => r.Berth)
-                .Include(r => r.Ship)
-                .Include(r => r.User)
-                .FirstOrDefaultAsync(r => r.Id == id && r.IsDeleted == false);
+            return await this.context.Reservations.FirstOrDefaultAsync(r => r.Id == id && r.IsDeleted == false);
         }
 
         /// <summary>

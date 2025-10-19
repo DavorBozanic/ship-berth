@@ -58,7 +58,7 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The berth.
         /// </value>
-        public Berth Berth { get; set; } = null!;
+        required public Berth Berth { get; set; }
 
         /// <summary>
         /// Gets or sets the ship.
@@ -66,7 +66,7 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The ship.
         /// </value>
-        public Ship Ship { get; set; } = null!;
+        required public Ship Ship { get; set; }
 
         /// <summary>
         /// Gets or sets the user.
@@ -74,6 +74,6 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The user.
         /// </value>
-        public User User { get; set; } = null!;
+        required public User User { get; set; }
     }
 }

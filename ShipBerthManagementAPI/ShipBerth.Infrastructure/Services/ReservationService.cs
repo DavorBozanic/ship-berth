@@ -157,8 +157,8 @@ namespace ShipBerth.Infrastructure.Services
             return new ReservationDTO
             {
                 Id = reservation.Id,
-                BerthName = reservation.Berth?.Name ?? "Unknown",
-                ShipName = reservation.Ship?.Name ?? "Unknown",
+                BerthId = reservation.BerthId,
+                ShipId = reservation.ShipId,
                 ScheduledArrival = reservation.ScheduledArrival,
                 ScheduledDeparture = reservation.ScheduledDeparture,
                 CreatedAt = reservation.CreatedAt,

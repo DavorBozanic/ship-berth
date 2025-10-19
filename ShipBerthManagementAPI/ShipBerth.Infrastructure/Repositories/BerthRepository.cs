@@ -35,8 +35,6 @@ namespace ShipBerth.Infrastructure.Repositories
         public async Task<Berth?> GetByIdAsync(int id)
         {
             return await this.context.Berths
-                .Include(b => b.DockingRecords)
-                    .ThenInclude(dr => dr.Ship)
                 .Include(b => b.Reservations)
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
