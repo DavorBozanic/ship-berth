@@ -75,9 +75,9 @@ namespace ShipBerth.WebAPI.Controllers
         {
             try
             {
-                var berth = await this.berthService.GetBerthDetailAsync(id);
+                var berth = await this.berthService.GetBerthAsync(id);
 
-                this.logger.LogInformation("Retrieved berth details for ID: {BerthId}.", id);
+                this.logger.LogInformation("Retrieved berth for ID: {BerthId}.", id);
 
                 return this.Ok(berth);
             }
@@ -89,9 +89,9 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                this.logger.LogError(ex, "Error fetching berth details for ID: {BerthId}.", id);
+                this.logger.LogError(ex, "Error fetching berth for ID: {BerthId}.", id);
 
-                return this.BadRequest(new { message = "An error occurred while fetching berth details.", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred while fetching berth.", error = ex.Message });
             }
         }
 

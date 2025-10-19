@@ -51,7 +51,7 @@ namespace ShipBerth.Application.DTOs
         /// <value>
         /// The docking records.
         /// </value>
-        public ICollection<DockingRecord> DockingRecords { get; set; } = new List<DockingRecord>();
+        public ICollection<DockingRecord>? DockingRecords { get; set; } = new List<DockingRecord>();
 
         /// <summary>
         /// Gets or sets the reservations.
@@ -59,6 +59,6 @@ namespace ShipBerth.Application.DTOs
         /// <value>
         /// The reservations.
         /// </value>
-        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public ICollection<Reservation>? Reservations { get; set; } = new List<Reservation>();
     }
 }

@@ -27,7 +27,7 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The size.
         /// </value>
-        [Precision(3, 2)]
+        [Precision(5, 2)]
         public decimal Size { get; set; }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The docking records.
         /// </value>
-        public ICollection<DockingRecord> DockingRecords { get; set; } = new List<DockingRecord>();
+        public ICollection<DockingRecord>? DockingRecords { get; set; } = new List<DockingRecord>();
 
         /// <summary>
         /// Gets or sets the reservations.
@@ -52,6 +52,6 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The reservations.
         /// </value>
-        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public ICollection<Reservation>? Reservations { get; set; } = new List<Reservation>();
     }
 }

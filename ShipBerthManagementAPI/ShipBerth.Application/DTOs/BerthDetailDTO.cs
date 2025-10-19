@@ -42,6 +42,6 @@ namespace ShipBerth.Application.DTOs
         /// <value>
         /// The status.
         /// </value>
-        public BerthStatus Status { get; set; };
+        public BerthStatus Status { get; set; }
     }
 }

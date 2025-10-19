@@ -25,11 +25,11 @@ namespace ShipBerth.Application.Interfaces
         Task<List<BerthDTO>> SearchBerthsAsync(BerthSearchDTO searchDto);
 
         /// <summary>
-        /// Gets the berth detail asynchronously.
+        /// Gets the berth asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Berth.</returns>
-        Task<BerthDetailDTO> GetBerthDetailAsync(int id);
+        Task<BerthDetailDTO> GetBerthAsync(int id);
 
         /// <summary>
         /// Creates the berth asynchronously.

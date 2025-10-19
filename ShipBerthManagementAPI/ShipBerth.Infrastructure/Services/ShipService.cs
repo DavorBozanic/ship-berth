@@ -125,7 +125,6 @@ namespace ShipBerth.Infrastructure.Services
                 Type = ship.Type,
                 CreatedAt = ship.CreatedAt,
                 UpdatedAt = ship.UpdatedAt,
-                IsDeleted = ship.IsDeleted,
             };
         }
     }

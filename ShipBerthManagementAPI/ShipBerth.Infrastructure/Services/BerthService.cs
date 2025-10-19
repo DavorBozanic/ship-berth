@@ -56,12 +56,12 @@ namespace ShipBerth.Infrastructure.Services
         }
 
         /// <summary>
-        /// Gets the berth detail asynchronously.
+        /// Gets the berth asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Berth.</returns>
         /// <exception cref="KeyNotFoundException">Berth with ID {id} not found.</exception>
-        public async Task<BerthDetailDTO> GetBerthDetailAsync(int id)
+        public async Task<BerthDetailDTO> GetBerthAsync(int id)
         {
             var berth = await this.berthRepository.GetByIdAsync(id);
 
@@ -79,7 +79,6 @@ namespace ShipBerth.Infrastructure.Services
                 Status = berth.Status,
                 CreatedAt = berth.CreatedAt,
                 UpdatedAt = berth.UpdatedAt,
-                IsDeleted = berth.IsDeleted,
             };
         }
 
@@ -163,7 +162,6 @@ namespace ShipBerth.Infrastructure.Services
                 Status = berth.Status,
                 CreatedAt = berth.CreatedAt,
                 UpdatedAt = berth.UpdatedAt,
-                IsDeleted = berth.IsDeleted,
             };
         }
     }

@@ -163,7 +163,6 @@ namespace ShipBerth.Infrastructure.Services
                 ScheduledDeparture = reservation.ScheduledDeparture,
                 CreatedAt = reservation.CreatedAt,
                 UpdatedAt = reservation.UpdatedAt,
-                IsDeleted = reservation.IsDeleted,
             };
         }
     }
