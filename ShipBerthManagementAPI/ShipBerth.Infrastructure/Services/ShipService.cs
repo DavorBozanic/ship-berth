@@ -5,6 +5,7 @@
 using ShipBerth.Application.DTOs;
 using ShipBerth.Application.Interfaces;
 using ShipBerth.Domain.Entities;
+using System.Data.SqlTypes;
 
 namespace ShipBerth.Infrastructure.Services
 {
@@ -66,6 +67,7 @@ namespace ShipBerth.Infrastructure.Services
                 Name = shipDto.Name,
                 Size = shipDto.Size,
                 Type = shipDto.Type,
+                CreatedByUserId = shipDto.CreatedByUserId,
             };
 
             await this.shipRepository.AddShipAsync(ship);

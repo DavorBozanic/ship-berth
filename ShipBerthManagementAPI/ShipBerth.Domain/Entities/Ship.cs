@@ -2,6 +2,7 @@
 // CONFIDENTIAL; Property of Maritime Center of Excellence d.o.o.
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
+using Microsoft.EntityFrameworkCore;
 using ShipBerth.Domain.Entities.Common;
 
 namespace ShipBerth.Domain.Entities
@@ -26,6 +27,7 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The size.
         /// </value>
+        [Precision(3, 2)]
         public decimal Size { get; set; }
 
         /// <summary>

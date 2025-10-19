@@ -92,9 +92,11 @@ namespace ShipBerth.Infrastructure.Services
 
             var user = new User
             {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
                 Username = request.Username,
                 Email = request.Email,
-                PasswordHash = HashPassword(request.Password), // Simple hash for now
+                PasswordHash = HashPassword(request.Password),
                 Role = "User",
             };
 

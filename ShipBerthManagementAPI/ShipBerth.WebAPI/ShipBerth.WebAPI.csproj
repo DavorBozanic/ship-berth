@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShipBerth.Application\ShipBerth.Application.csproj" />
-    <ProjectReference Include="..\ShipBerth.Domain\ShipBerth.Domain.csproj" />
     <ProjectReference Include="..\ShipBerth.Infrastructure\ShipBerth.Infrastructure.csproj" />
   </ItemGroup>
 

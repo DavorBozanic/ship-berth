@@ -44,7 +44,7 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred while fetching ships", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred while fetching ships.", error = ex.Message });
             }
         }
 
@@ -68,7 +68,7 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred while fetching ship details", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred while fetching ship details.", error = ex.Message });
             }
         }
 
@@ -88,7 +88,7 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred while creating ship", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred while creating ship.", error = ex.Message });
             }
         }
 
@@ -113,7 +113,7 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred while updating ship", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred while updating ship.", error = ex.Message });
             }
         }
 
@@ -137,7 +137,7 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred while deleting ship", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred while deleting ship.", error = ex.Message });
             }
         }
     }

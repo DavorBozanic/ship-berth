@@ -129,13 +129,13 @@ namespace ShipBerth.Infrastructure.Services
 
             if (reservation == null)
             {
-                throw new KeyNotFoundException($"Reservation with ID {reservationId} not found");
+                throw new KeyNotFoundException($"Reservation with ID {reservationId} not found.");
             }
 
             // Check if user owns this reservation
             if (reservation.UserId != userId)
             {
-                throw new UnauthorizedAccessException("You can only cancel your own reservations");
+                throw new UnauthorizedAccessException("You can only cancel your own reservations.");
             }
 
             // Update reservation status
@@ -179,7 +179,7 @@ namespace ShipBerth.Infrastructure.Services
 
             if (reservation == null)
             {
-                throw new KeyNotFoundException($"Reservation with ID {reservationId} not found");
+                throw new KeyNotFoundException($"Reservation with ID {reservationId} not found.");
             }
 
             return this.MapToReservationDTO(reservation);

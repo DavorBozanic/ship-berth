@@ -22,7 +22,7 @@ namespace ShipBerth.WebAPI.Controllers
         private readonly IReservationService reservationService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReservationsController"/> class.
+        /// Initializes a new instance of the <see cref="ReservationsController" /> class.
         /// </summary>
         /// <param name="reservationService">The reservation service.</param>
         public ReservationsController(IReservationService reservationService)

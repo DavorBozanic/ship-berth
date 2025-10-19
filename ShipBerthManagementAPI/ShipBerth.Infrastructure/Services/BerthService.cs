@@ -67,7 +67,7 @@ namespace ShipBerth.Infrastructure.Services
 
             if (berth == null)
             {
-                throw new KeyNotFoundException($"Berth with ID {id} not found");
+                throw new KeyNotFoundException($"Berth with ID {id} not found.");
             }
 
             return new BerthDetailDTO

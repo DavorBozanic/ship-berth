@@ -47,7 +47,7 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred during login", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred during login.", error = ex.Message });
             }
         }
 
@@ -72,7 +72,7 @@ namespace ShipBerth.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred during registration", error = ex.Message });
+                return this.BadRequest(new { message = "An error occurred during registration.", error = ex.Message });
             }
         }
     }

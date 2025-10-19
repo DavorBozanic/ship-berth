@@ -18,6 +18,14 @@ namespace ShipBerth.Domain.Entities.Common
         public int Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the created by user identifier.
+        /// </summary>
+        /// <value>
+        /// The created by user identifier.
+        /// </value>
+        public int CreatedByUserId { get; set; }
+
+        /// <summary>
         /// Gets or sets the created at.
         /// </summary>
         /// <value>
