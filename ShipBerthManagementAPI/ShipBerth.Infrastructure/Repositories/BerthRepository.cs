@@ -31,7 +31,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Gets the berth by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Berth.</returns>
         public async Task<Berth?> GetByIdAsync(int id)
         {
             return await this.context.Berths
@@ -44,7 +44,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <summary>
         /// Gets all berths asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         public async Task<List<Berth>> GetAllAsync()
         {
             return await this.context.Berths.ToListAsync();
@@ -53,11 +53,11 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <summary>
         /// Gets the available berths asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         public async Task<List<Berth>> GetAvailableBerthsAsync()
         {
             return await this.context.Berths
-                .Where(b => b.Status == BerthStatus.Available)
+                .Where(b => b.Status == BerthStatus.Available && b.IsDeleted == false)
                 .ToListAsync();
         }
 
@@ -67,7 +67,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <param name="location">The location.</param>
         /// <param name="minSize">The minimum size.</param>
         /// <param name="status">The status.</param>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         public async Task<List<Berth>> SearchBerthsAsync(string? location, int? minSize, string? status)
         {
             var query = this.context.Berths.AsQueryable();

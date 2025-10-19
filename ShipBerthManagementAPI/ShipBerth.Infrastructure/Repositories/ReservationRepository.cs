@@ -30,29 +30,14 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Gets the reservation by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Reservation.</returns>
         public async Task<Reservation?> GetByIdAsync(int id)
         {
             return await this.context.Reservations
                 .Include(r => r.Berth)
                 .Include(r => r.Ship)
                 .Include(r => r.User)
-                .FirstOrDefaultAsync(r => r.Id == id);
-        }
-
-        /// <summary>
-        /// Gets the user reservations asynchronously.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
-        public async Task<List<Reservation>> GetUserReservationsAsync(int userId)
-        {
-            return await this.context.Reservations
-                .Include(r => r.Berth)
-                .Include(r => r.Ship)
-                .Where(r => r.UserId == userId)
-                .OrderByDescending(r => r.ScheduledArrival)
-                .ToListAsync();
+                .FirstOrDefaultAsync(r => r.Id == id && r.IsDeleted == false);
         }
 
         /// <summary>
@@ -61,7 +46,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <param name="berthId">The berth identifier.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
-        /// <returns></returns>
+        /// <returns>List of reservations.</returns>
         public async Task<List<Reservation>> GetReservationsForBerthAsync(int berthId, DateTime start, DateTime end)
         {
             return await this.context.Reservations
@@ -75,6 +60,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Adds the reservation asynchronously.
         /// </summary>
         /// <param name="reservation">The reservation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task AddReservationAsync(Reservation reservation)
         {
             await this.context.Reservations.AddAsync(reservation);
@@ -84,6 +70,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Updates the reservation asynchronously.
         /// </summary>
         /// <param name="reservation">The reservation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task UpdateReservationAsync(Reservation reservation)
         {
             this.context.Reservations.Update(reservation);
@@ -95,6 +82,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Deletes the reservation asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task DeleteReservationAsync(int id)
         {
             var reservation = await this.context.Reservations.FindAsync(id);
@@ -108,6 +96,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <summary>
         /// Saves the changes asynchronously.
         /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task SaveChangesAsync()
         {
             await this.context.SaveChangesAsync();

@@ -2,7 +2,6 @@
 // CONFIDENTIAL; Property of Maritime Center of Excellence d.o.o.
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShipBerth.Application.DTOs;
@@ -20,41 +19,39 @@ namespace ShipBerth.WebAPI.Controllers
     public class ReservationsController : ControllerBase
     {
         private readonly IReservationService reservationService;
+        private readonly ILogger<ReservationsController> logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReservationsController" /> class.
         /// </summary>
         /// <param name="reservationService">The reservation service.</param>
-        public ReservationsController(IReservationService reservationService)
+        /// <param name="logger">The logger.</param>
+        public ReservationsController(IReservationService reservationService, ILogger<ReservationsController> logger)
         {
             this.reservationService = reservationService;
+            this.logger = logger;
         }
 
         /// <summary>
         /// Creates the reservation.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
+        /// <param name="reservationRequestDto">The reservation request dto.</param>
+        /// <returns>Action result with reservation.</returns>
         [HttpPost]
-        public async Task<ActionResult<ReservationDTO>> CreateReservation(ReservationRequestDTO request)
+        public async Task<ActionResult<ReservationDTO>> CreateReservation(ReservationRequestDTO reservationRequestDto)
         {
             try
             {
-                var userId = this.GetUserIdFromToken();
-                var reservation = await this.reservationService.CreateReservationAsync(request, userId);
+                var reservation = await this.reservationService.CreateReservationAsync(reservationRequestDto);
+
+                this.logger.LogInformation("Reservation created successfully: {ReservationId}.", reservation.Id);
 
                 return this.CreatedAtAction(nameof(this.GetReservation), new { id = reservation.Id }, reservation);
             }
-            catch (KeyNotFoundException ex)
-            {
-                return this.NotFound(new { message = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return this.BadRequest(new { message = ex.Message });
-            }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, "Error creating reservation with data: {@ReservationData}.", reservationRequestDto);
+
                 return this.BadRequest(new { message = "An error occurred while creating reservation.", error = ex.Message });
             }
         }
@@ -63,27 +60,22 @@ namespace ShipBerth.WebAPI.Controllers
         /// Cancels the reservation.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Action result.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> CancelReservation(int id)
         {
             try
             {
-                var userId = this.GetUserIdFromToken();
-                await this.reservationService.CancelReservationAsync(id, userId);
+                await this.reservationService.CancelReservationAsync(id);
+
+                this.logger.LogInformation("Reservation cancelled successfully: {ReservationId}.", id);
 
                 return this.NoContent();
             }
-            catch (KeyNotFoundException ex)
-            {
-                return this.NotFound(new { message = ex.Message });
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return this.Forbid(ex.Message);
-            }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, "Error cancelling reservation {ReservationId}.", id);
+
                 return this.BadRequest(new { message = "An error occurred while cancelling reservation.", error = ex.Message });
             }
         }
@@ -92,7 +84,7 @@ namespace ShipBerth.WebAPI.Controllers
         /// Gets the reservation.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Action result with reservation.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ReservationDTO>> GetReservation(int id)
         {
@@ -100,28 +92,16 @@ namespace ShipBerth.WebAPI.Controllers
             {
                 var reservation = await this.reservationService.GetReservationAsync(id);
 
+                this.logger.LogInformation("Retrieved reservation for ID: {ReservationId}.", id);
+
                 return this.Ok(reservation);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return this.NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, "Error fetching reservation for ID: {ReservationId}.", id);
+
                 return this.BadRequest(new { message = "An error occurred while fetching reservation.", error = ex.Message });
             }
-        }
-
-        private int GetUserIdFromToken()
-        {
-            var userIdClaim = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
-            {
-                throw new UnauthorizedAccessException("Invalid user token.");
-            }
-
-            return userId;
         }
     }
 }

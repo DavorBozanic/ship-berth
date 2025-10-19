@@ -15,44 +15,28 @@ namespace ShipBerth.Application.Interfaces
         /// Logins asynchronously.
         /// </summary>
         /// <param name="loginRequest">The login request.</param>
-        /// <returns>
-        /// A task that completes with <see cref="LoginResponseDTO"/> when authentication finishes.
-        /// - On success: Contains valid token and user data.
-        /// - On failure: Contains error message and failure reason.
-        /// </returns>
+        /// <returns>Login response.</returns>
         Task<LoginResponseDTO> LoginAsync(LoginRequestDTO loginRequest);
 
         /// <summary>
         /// Registers asynchronously.
         /// </summary>
         /// <param name="registerRequest">The register request.</param>
-        /// <returns>
-        /// A task that completes with <see cref="RegisterResponseDTO"/> when registration finishes.
-        /// - On success: Contains user ID and confirmation message.
-        /// - On failure: Contains error messages for duplicate email, weak password, etc.
-        /// </returns>
+        /// <returns>Register response.</returns>
         Task<RegisterResponseDTO> RegisterAsync(RegisterRequestDTO registerRequest);
 
         /// <summary>
         /// Checks asynchronously if user exists.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <returns>
-        /// A task that completes with bool when registration finishes.
-        /// - On success: true.
-        /// - On failure: false.
-        /// </returns>
+        /// <returns>True or false, whether user exists.</returns>
         Task<bool> UserExistsAsync(string username);
 
         /// <summary>
         /// Checks asynchronously if email exists.
         /// </summary>
         /// <param name="email">The email.</param>
-        /// <returns>
-        /// A task that completes with bool when registration finishes.
-        /// - On success: true.
-        /// - On failure: false.
-        /// </returns>
+        /// <returns>True or false, whether email exists.</returns>
         Task<bool> EmailExistsAsync(string email);
     }
 }

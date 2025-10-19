@@ -5,7 +5,6 @@
 using ShipBerth.Application.DTOs;
 using ShipBerth.Application.Interfaces;
 using ShipBerth.Domain.Entities;
-using System.Data.SqlTypes;
 
 namespace ShipBerth.Infrastructure.Services
 {
@@ -29,7 +28,7 @@ namespace ShipBerth.Infrastructure.Services
         /// <summary>
         /// Gets all ships asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of ships.</returns>
         public async Task<List<ShipDTO>> GetAllShipsAsync()
         {
             var ships = await this.shipRepository.GetAllAsync();
@@ -41,7 +40,7 @@ namespace ShipBerth.Infrastructure.Services
         /// Gets the ship asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Ship.</returns>
         /// <exception cref="KeyNotFoundException">Ship with ID {id} not found.</exception>
         public async Task<ShipDTO> GetShipAsync(int id)
         {
@@ -59,7 +58,7 @@ namespace ShipBerth.Infrastructure.Services
         /// Creates the ship asynchronously.
         /// </summary>
         /// <param name="shipDto">The ship dto.</param>
-        /// <returns></returns>
+        /// <returns>Ship.</returns>
         public async Task<ShipDTO> CreateShipAsync(ShipDTO shipDto)
         {
             var ship = new Ship
@@ -81,7 +80,7 @@ namespace ShipBerth.Infrastructure.Services
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="shipDto">The ship dto.</param>
-        /// <returns></returns>
+        /// <returns>Ship.</returns>
         /// <exception cref="KeyNotFoundException">Ship with ID {id} not found.</exception>
         public async Task<ShipDTO> UpdateShipAsync(int id, ShipDTO shipDto)
         {
@@ -107,7 +106,7 @@ namespace ShipBerth.Infrastructure.Services
         /// Deletes the ship asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether ship is deleted.</returns>
         public async Task<bool> DeleteShipAsync(int id)
         {
             await this.shipRepository.DeleteShipAsync(id);

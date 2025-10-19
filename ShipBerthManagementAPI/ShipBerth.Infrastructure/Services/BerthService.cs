@@ -32,7 +32,7 @@ namespace ShipBerth.Infrastructure.Services
         /// <summary>
         /// Gets all berths asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         public async Task<List<BerthDTO>> GetAllBerthsAsync()
         {
             var berths = await this.berthRepository.GetAllAsync();
@@ -44,7 +44,7 @@ namespace ShipBerth.Infrastructure.Services
         /// Searches the berths asynchronously.
         /// </summary>
         /// <param name="searchDto">The search dto.</param>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         public async Task<List<BerthDTO>> SearchBerthsAsync(BerthSearchDTO searchDto)
         {
             var berths = await this.berthRepository.SearchBerthsAsync(
@@ -59,8 +59,8 @@ namespace ShipBerth.Infrastructure.Services
         /// Gets the berth detail asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        /// <exception cref="KeyNotFoundException">Berth with ID {id} not found</exception>
+        /// <returns>Berth.</returns>
+        /// <exception cref="KeyNotFoundException">Berth with ID {id} not found.</exception>
         public async Task<BerthDetailDTO> GetBerthDetailAsync(int id)
         {
             var berth = await this.berthRepository.GetByIdAsync(id);
@@ -76,7 +76,7 @@ namespace ShipBerth.Infrastructure.Services
                 Name = berth.Name,
                 Location = berth.Location,
                 MaxShipSize = berth.MaxShipSize,
-                Status = berth.Status.ToString(),
+                Status = berth.Status,
                 CreatedAt = berth.CreatedAt,
                 UpdatedAt = berth.UpdatedAt,
                 IsDeleted = berth.IsDeleted,
@@ -87,7 +87,7 @@ namespace ShipBerth.Infrastructure.Services
         /// Creates the berth asynchronously.
         /// </summary>
         /// <param name="berthDto">The berth dto.</param>
-        /// <returns></returns>
+        /// <returns>Berth.</returns>
         public async Task<BerthDTO> CreateBerthAsync(BerthDTO berthDto)
         {
             var berth = new Berth
@@ -101,6 +101,13 @@ namespace ShipBerth.Infrastructure.Services
             return this.MapToBerthDTO(berth);
         }
 
+        /// <summary>
+        /// Updates the berth asynchronously.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="berthDto">The berth dto.</param>
+        /// <returns>Berth.</returns>
+        /// <exception cref="KeyNotFoundException">Berth with ID {id} not found.</exception>
         public async Task<BerthDTO> UpdateBerthAsync(int id, BerthDTO berthDto)
         {
             var existingBerth = await this.berthRepository.GetByIdAsync(id);
@@ -110,12 +117,12 @@ namespace ShipBerth.Infrastructure.Services
                 throw new KeyNotFoundException($"Berth with ID {id} not found.");
             }
 
-            existingBerth.Name = existingBerth.Name;
-            existingBerth.Location = existingBerth.Location;
-            existingBerth.MaxShipSize = existingBerth.MaxShipSize;
-            existingBerth.Status = existingBerth.Status;
-            existingBerth.Reservations = existingBerth.Reservations;
-            existingBerth.DockingRecords = existingBerth.DockingRecords;
+            existingBerth.Name = berthDto.Name;
+            existingBerth.Location = berthDto.Location;
+            existingBerth.MaxShipSize = berthDto.MaxShipSize;
+            existingBerth.Status = berthDto.Status;
+            existingBerth.Reservations = berthDto.Reservations;
+            existingBerth.DockingRecords = berthDto.DockingRecords;
             existingBerth.UpdatedAt = DateTime.UtcNow;
 
             await this.berthRepository.UpdateBerthAsync(existingBerth);
@@ -130,7 +137,7 @@ namespace ShipBerth.Infrastructure.Services
         /// <param name="berthId">The berth identifier.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether berth is available.</returns>
         public async Task<bool> IsBerthAvailableAsync(int berthId, DateTime start, DateTime end)
         {
             var berth = await this.berthRepository.GetByIdAsync(berthId);
@@ -153,7 +160,7 @@ namespace ShipBerth.Infrastructure.Services
                 Name = berth.Name,
                 Location = berth.Location,
                 MaxShipSize = berth.MaxShipSize,
-                Status = berth.Status.ToString(),
+                Status = berth.Status,
                 CreatedAt = berth.CreatedAt,
                 UpdatedAt = berth.UpdatedAt,
                 IsDeleted = berth.IsDeleted,

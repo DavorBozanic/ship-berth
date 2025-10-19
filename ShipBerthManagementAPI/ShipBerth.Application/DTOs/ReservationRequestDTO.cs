@@ -26,6 +26,14 @@ namespace ShipBerth.Application.DTOs
         public int ShipId { get; set; }
 
         /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        public int UserId { get; set; }
+
+        /// <summary>
         /// Gets or sets the scheduled arrival.
         /// </summary>
         /// <value>

@@ -14,28 +14,28 @@ namespace ShipBerth.Application.Interfaces
         /// <summary>
         /// Gets all berths asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         Task<List<BerthDTO>> GetAllBerthsAsync();
 
         /// <summary>
         /// Searches the berths asynchronously.
         /// </summary>
         /// <param name="searchDto">The search dto.</param>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         Task<List<BerthDTO>> SearchBerthsAsync(BerthSearchDTO searchDto);
 
         /// <summary>
         /// Gets the berth detail asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Berth.</returns>
         Task<BerthDetailDTO> GetBerthDetailAsync(int id);
 
         /// <summary>
         /// Creates the berth asynchronously.
         /// </summary>
         /// <param name="berthDto">The berth dto.</param>
-        /// <returns></returns>
+        /// <returns>Berth.</returns>
         Task<BerthDTO> CreateBerthAsync(BerthDTO berthDto);
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ShipBerth.Application.Interfaces
         /// <param name="berthId">The berth identifier.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether berth is available.</returns>
         Task<bool> IsBerthAvailableAsync(int berthId, DateTime start, DateTime end);
     }
 }

@@ -15,15 +15,8 @@ namespace ShipBerth.Application.Interfaces
         /// Gets the reservation by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Reservation.</returns>
         Task<Reservation?> GetByIdAsync(int id);
-
-        /// <summary>
-        /// Gets the user reservations asynchronously.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
-        Task<List<Reservation>> GetUserReservationsAsync(int userId);
 
         /// <summary>
         /// Gets the reservations for berth asynchronously.
@@ -31,34 +24,34 @@ namespace ShipBerth.Application.Interfaces
         /// <param name="berthId">The berth identifier.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
-        /// <returns></returns>
+        /// <returns>List of reservations.</returns>
         Task<List<Reservation>> GetReservationsForBerthAsync(int berthId, DateTime start, DateTime end);
 
         /// <summary>
         /// Adds the reservation asynchronously.
         /// </summary>
         /// <param name="reservation">The reservation.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task AddReservationAsync(Reservation reservation);
 
         /// <summary>
         /// Updates the reservation asynchronously.
         /// </summary>
         /// <param name="reservation">The reservation.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task UpdateReservationAsync(Reservation reservation);
 
         /// <summary>
         /// Deletes the reservation asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task DeleteReservationAsync(int id);
 
         /// <summary>
         /// Saves the changes asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task SaveChangesAsync();
     }
 }

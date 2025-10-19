@@ -2,6 +2,8 @@
 // CONFIDENTIAL; Property of Maritime Center of Excellence d.o.o.
 // Unauthorized reproduction, copying, distribution or any other use of the whole or any part of this documentation/data/software is strictly prohibited.
 
+using ShipBerth.Domain.Enums;
+
 namespace ShipBerth.Application.DTOs
 {
     /// <summary>
@@ -40,6 +42,6 @@ namespace ShipBerth.Application.DTOs
         /// <value>
         /// The status.
         /// </value>
-        public string Status { get; set; } = string.Empty;
+        public BerthStatus Status { get; set; };
     }
 }

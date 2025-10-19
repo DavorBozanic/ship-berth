@@ -14,21 +14,21 @@ namespace ShipBerth.Application.Interfaces
         /// <summary>
         /// Gets all ships asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of ships.</returns>
         Task<List<ShipDTO>> GetAllShipsAsync();
 
         /// <summary>
         /// Gets the ship asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Ship.</returns>
         Task<ShipDTO> GetShipAsync(int id);
 
         /// <summary>
         /// Creates the ship asynchronously.
         /// </summary>
         /// <param name="shipDto">The ship dto.</param>
-        /// <returns></returns>
+        /// <returns>Ship.</returns>
         Task<ShipDTO> CreateShipAsync(ShipDTO shipDto);
 
         /// <summary>
@@ -36,14 +36,14 @@ namespace ShipBerth.Application.Interfaces
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="shipDto">The ship dto.</param>
-        /// <returns></returns>
+        /// <returns>Ship.</returns>
         Task<ShipDTO> UpdateShipAsync(int id, ShipDTO shipDto);
 
         /// <summary>
         /// Deletes the ship asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether ship is deleted.</returns>
         Task<bool> DeleteShipAsync(int id);
     }
 }

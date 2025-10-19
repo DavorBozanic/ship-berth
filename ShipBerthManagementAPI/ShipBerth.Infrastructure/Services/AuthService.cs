@@ -37,7 +37,7 @@ namespace ShipBerth.Infrastructure.Services
         /// Logins asynchronously.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns></returns>
+        /// <returns>Login reponse.</returns>
         /// <exception cref="UnauthorizedAccessException">Invalid credentials.</exception>
         public async Task<LoginResponseDTO> LoginAsync(LoginRequestDTO request)
         {
@@ -69,7 +69,7 @@ namespace ShipBerth.Infrastructure.Services
         /// Registers asynchronously.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns></returns>
+        /// <returns>Register response.</returns>
         public async Task<RegisterResponseDTO> RegisterAsync(RegisterRequestDTO request)
         {
             if (await this.userRepository.UserExistsAsync(request.Username))

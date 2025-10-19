@@ -15,19 +15,19 @@ namespace ShipBerth.Application.Interfaces
         /// Gets the berth by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Berth.</returns>
         Task<Berth?> GetByIdAsync(int id);
 
         /// <summary>
         /// Gets all berths asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         Task<List<Berth>> GetAllAsync();
 
         /// <summary>
         /// Gets the available berths asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         Task<List<Berth>> GetAvailableBerthsAsync();
 
         /// <summary>
@@ -36,34 +36,34 @@ namespace ShipBerth.Application.Interfaces
         /// <param name="location">The location.</param>
         /// <param name="minSize">The minimum size.</param>
         /// <param name="status">The status.</param>
-        /// <returns></returns>
+        /// <returns>List of berths.</returns>
         Task<List<Berth>> SearchBerthsAsync(string? location, int? minSize, string? status);
 
         /// <summary>
         /// Adds the berth asynchronously.
         /// </summary>
         /// <param name="berth">The berth.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task AddBerthAsync(Berth berth);
 
         /// <summary>
         /// Updates the berth asynchronously.
         /// </summary>
         /// <param name="berth">The berth.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task UpdateBerthAsync(Berth berth);
 
         /// <summary>
         /// Deletes the berth asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task DeleteBerthAsync(int id);
 
         /// <summary>
         /// Saves the berth changes asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task SaveChangesAsync();
     }
 }

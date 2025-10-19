@@ -18,7 +18,6 @@ namespace ShipBerth.Infrastructure.Services
         private readonly IReservationRepository reservationRepository;
         private readonly IBerthRepository berthRepository;
         private readonly IShipRepository shipRepository;
-        private readonly IUserRepository userRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReservationService"/> class.
@@ -26,45 +25,41 @@ namespace ShipBerth.Infrastructure.Services
         /// <param name="reservationRepository">The reservation repository.</param>
         /// <param name="berthRepository">The berth repository.</param>
         /// <param name="shipRepository">The ship repository.</param>
-        /// <param name="userRepository">The user repository.</param>
         public ReservationService(
             IReservationRepository reservationRepository,
             IBerthRepository berthRepository,
-            IShipRepository shipRepository,
-            IUserRepository userRepository)
+            IShipRepository shipRepository)
         {
             this.reservationRepository = reservationRepository;
             this.berthRepository = berthRepository;
             this.shipRepository = shipRepository;
-            this.userRepository = userRepository;
         }
 
         /// <summary>
-        /// Creates the reservation asynchronous.
+        /// Creates the reservation asynchronously.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
+        /// <param name="reservationRequestDto">The reservation request dto.</param>
+        /// <returns>
+        /// Reservation.
+        /// </returns>
         /// <exception cref="KeyNotFoundException">
         /// Berth with ID {request.BerthId} not found.
         /// or
         /// Ship with ID {request.ShipId} not found.
-        /// or
-        /// User with ID {userId} not found.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// Berth is not available for reservation.
         /// or
         /// Ship is too large for this berth. Berth max size: {berth.MaxShipSize}m, Ship size: {ship.Size}m.
         /// </exception>
-        public async Task<ReservationDTO> CreateReservationAsync(ReservationRequestDTO request, int userId)
+        public async Task<ReservationDTO> CreateReservationAsync(ReservationRequestDTO reservationRequestDto)
         {
             // Validate berth exists and is available
-            var berth = await this.berthRepository.GetByIdAsync(request.BerthId);
+            var berth = await this.berthRepository.GetByIdAsync(reservationRequestDto.BerthId);
 
             if (berth == null)
             {
-                throw new KeyNotFoundException($"Berth with ID {request.BerthId} not found.");
+                throw new KeyNotFoundException($"Berth with ID {reservationRequestDto.BerthId} not found.");
             }
 
             if (berth.Status != BerthStatus.Available)
@@ -73,19 +68,11 @@ namespace ShipBerth.Infrastructure.Services
             }
 
             // Validate ship exists
-            var ship = await this.shipRepository.GetByIdAsync(request.ShipId);
+            var ship = await this.shipRepository.GetByIdAsync(reservationRequestDto.ShipId);
 
             if (ship == null)
             {
-                throw new KeyNotFoundException($"Ship with ID {request.ShipId} not found.");
-            }
-
-            // Validate user exists
-            var user = await this.userRepository.GetUserByIdAsync(userId);
-
-            if (user == null)
-            {
-                throw new KeyNotFoundException($"User with ID {userId} not found.");
+                throw new KeyNotFoundException($"Ship with ID {reservationRequestDto.ShipId} not found.");
             }
 
             // Validate berth can accommodate ship size
@@ -97,11 +84,11 @@ namespace ShipBerth.Infrastructure.Services
             // Create reservation
             var reservation = new Reservation
             {
-                BerthId = request.BerthId,
-                ShipId = request.ShipId,
-                UserId = userId,
-                ScheduledArrival = request.ScheduledArrival,
-                ScheduledDeparture = request.ScheduledDeparture,
+                BerthId = reservationRequestDto.BerthId,
+                ShipId = reservationRequestDto.ShipId,
+                UserId = reservationRequestDto.UserId,
+                ScheduledArrival = reservationRequestDto.ScheduledArrival,
+                ScheduledDeparture = reservationRequestDto.ScheduledDeparture,
             };
 
             await this.reservationRepository.AddReservationAsync(reservation);
@@ -119,23 +106,15 @@ namespace ShipBerth.Infrastructure.Services
         /// Cancels the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether reservation is cancelled.</returns>
         /// <exception cref="KeyNotFoundException">Reservation with ID {reservationId} not found.</exception>
-        /// <exception cref="UnauthorizedAccessException">You can only cancel your own reservations.</exception>
-        public async Task<bool> CancelReservationAsync(int reservationId, int userId)
+        public async Task<bool> CancelReservationAsync(int reservationId)
         {
             var reservation = await this.reservationRepository.GetByIdAsync(reservationId);
 
             if (reservation == null)
             {
                 throw new KeyNotFoundException($"Reservation with ID {reservationId} not found.");
-            }
-
-            // Check if user owns this reservation
-            if (reservation.UserId != userId)
-            {
-                throw new UnauthorizedAccessException("You can only cancel your own reservations.");
             }
 
             // Update reservation status
@@ -156,22 +135,10 @@ namespace ShipBerth.Infrastructure.Services
         }
 
         /// <summary>
-        /// Gets the user reservations asynchronously.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
-        public async Task<List<ReservationDTO>> GetUserReservationsAsync(int userId)
-        {
-            var reservations = await this.reservationRepository.GetUserReservationsAsync(userId);
-
-            return reservations.Select(this.MapToReservationDTO).ToList();
-        }
-
-        /// <summary>
         /// Gets the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
-        /// <returns></returns>
+        /// <returns>Reservation.</returns>
         /// <exception cref="KeyNotFoundException">Reservation with ID {reservationId} not found.</exception>
         public async Task<ReservationDTO> GetReservationAsync(int reservationId)
         {
@@ -182,10 +149,10 @@ namespace ShipBerth.Infrastructure.Services
                 throw new KeyNotFoundException($"Reservation with ID {reservationId} not found.");
             }
 
-            return this.MapToReservationDTO(reservation);
+            return MapToReservationDTO(reservation);
         }
 
-        private ReservationDTO MapToReservationDTO(Reservation reservation)
+        private static ReservationDTO MapToReservationDTO(Reservation reservation)
         {
             return new ReservationDTO
             {

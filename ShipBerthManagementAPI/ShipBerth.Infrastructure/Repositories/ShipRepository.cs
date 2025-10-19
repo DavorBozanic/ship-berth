@@ -30,7 +30,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Gets the ship by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Ship.</returns>
         public async Task<Ship?> GetByIdAsync(int id)
         {
             return await this.context.Ships.FindAsync(id);
@@ -39,7 +39,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <summary>
         /// Gets all ships asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of ships.</returns>
         public async Task<List<Ship>> GetAllAsync()
         {
             return await this.context.Ships.ToListAsync();
@@ -49,7 +49,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Gets the ships by type asynchronous.
         /// </summary>
         /// <param name="shipType">Type of the ship.</param>
-        /// <returns></returns>
+        /// <returns>List of ships.</returns>
         public async Task<List<Ship>> GetShipsByTypeAsync(string shipType)
         {
             return await this.context.Ships

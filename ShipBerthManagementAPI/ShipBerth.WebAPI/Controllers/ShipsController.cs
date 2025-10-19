@@ -19,20 +19,23 @@ namespace ShipBerth.WebAPI.Controllers
     public class ShipsController : ControllerBase
     {
         private readonly IShipService shipService;
+        private readonly ILogger<ShipsController> logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShipsController"/> class.
+        /// Initializes a new instance of the <see cref="ShipsController" /> class.
         /// </summary>
         /// <param name="shipService">The ship service.</param>
-        public ShipsController(IShipService shipService)
+        /// <param name="logger">The logger.</param>
+        public ShipsController(IShipService shipService, ILogger<ShipsController> logger)
         {
             this.shipService = shipService;
+            this.logger = logger;
         }
 
         /// <summary>
         /// Gets the ships.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Action result with list of ships.</returns>
         [HttpGet]
         public async Task<ActionResult<List<ShipDTO>>> GetShips()
         {
@@ -40,10 +43,14 @@ namespace ShipBerth.WebAPI.Controllers
             {
                 var ships = await this.shipService.GetAllShipsAsync();
 
+                this.logger.LogInformation("Retrieved {ShipCount} ships.", ships.Count);
+
                 return this.Ok(ships);
             }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, "Error fetching ships.");
+
                 return this.BadRequest(new { message = "An error occurred while fetching ships.", error = ex.Message });
             }
         }
@@ -52,7 +59,7 @@ namespace ShipBerth.WebAPI.Controllers
         /// Gets the ship.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Action result with ship.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ShipDTO>> GetShip(int id)
         {
@@ -60,15 +67,21 @@ namespace ShipBerth.WebAPI.Controllers
             {
                 var ship = await this.shipService.GetShipAsync(id);
 
+                this.logger.LogInformation("Retrieved ship for ID: {ShipId}.", id);
+
                 return this.Ok(ship);
             }
             catch (KeyNotFoundException ex)
             {
+                this.logger.LogWarning("Ship not found: {ShipId}.", id);
+
                 return this.NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = "An error occurred while fetching ship details.", error = ex.Message });
+                this.logger.LogError(ex, "Error fetching ship for ID: {ShipId}.", id);
+
+                return this.BadRequest(new { message = "An error occurred while fetching ship.", error = ex.Message });
             }
         }
 
@@ -76,7 +89,7 @@ namespace ShipBerth.WebAPI.Controllers
         /// Creates the ship.
         /// </summary>
         /// <param name="shipDto">The ship dto.</param>
-        /// <returns></returns>
+        /// <returns>Action result with ship.</returns>
         [HttpPost]
         public async Task<ActionResult<ShipDTO>> CreateShip(ShipDTO shipDto)
         {
@@ -84,10 +97,14 @@ namespace ShipBerth.WebAPI.Controllers
             {
                 var ship = await this.shipService.CreateShipAsync(shipDto);
 
+                this.logger.LogInformation("Ship created successfully: {ShipId}.", ship.Id);
+
                 return this.CreatedAtAction(nameof(this.GetShip), new { id = ship.Id }, ship);
             }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, "Error creating ship with data: {@ShipData}.", shipDto);
+
                 return this.BadRequest(new { message = "An error occurred while creating ship.", error = ex.Message });
             }
         }
@@ -97,7 +114,7 @@ namespace ShipBerth.WebAPI.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="shipDto">The ship dto.</param>
-        /// <returns></returns>
+        /// <returns>Action result with ship.</returns>
         [HttpPut("{id}")]
         public async Task<ActionResult<ShipDTO>> UpdateShip(int id, ShipDTO shipDto)
         {
@@ -105,14 +122,20 @@ namespace ShipBerth.WebAPI.Controllers
             {
                 var ship = await this.shipService.UpdateShipAsync(id, shipDto);
 
+                this.logger.LogInformation("Ship updated successfully: {ShipId}.", id);
+
                 return this.Ok(ship);
             }
             catch (KeyNotFoundException ex)
             {
+                this.logger.LogWarning("Ship not found for update: {ShipId}.", id);
+
                 return this.NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, "Error updating ship {ShipId}.", id);
+
                 return this.BadRequest(new { message = "An error occurred while updating ship.", error = ex.Message });
             }
         }
@@ -121,7 +144,7 @@ namespace ShipBerth.WebAPI.Controllers
         /// Deletes the ship.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Action result.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteShip(int id)
         {
@@ -129,14 +152,20 @@ namespace ShipBerth.WebAPI.Controllers
             {
                 await this.shipService.DeleteShipAsync(id);
 
+                this.logger.LogInformation("Ship deleted successfully: {ShipId}.", id);
+
                 return this.NoContent();
             }
             catch (KeyNotFoundException ex)
             {
+                this.logger.LogWarning("Ship not found for deletion: {ShipId}.", id);
+
                 return this.NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, "Error deleting ship {ShipId}.", id);
+
                 return this.BadRequest(new { message = "An error occurred while deleting ship.", error = ex.Message });
             }
         }

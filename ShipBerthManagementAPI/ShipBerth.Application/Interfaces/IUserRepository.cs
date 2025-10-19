@@ -15,41 +15,41 @@ namespace ShipBerth.Application.Interfaces
         /// Gets the user by username asynchronously.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <returns></returns>
+        /// <returns>User.</returns>
         Task<User?> GetUserByUsernameAsync(string username);
 
         /// <summary>
         /// Gets the user by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>User.</returns>
         Task<User?> GetUserByIdAsync(int id);
 
         /// <summary>
         /// Checks if user exists asynchronously.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether user exists.</returns>
         Task<bool> UserExistsAsync(string username);
 
         /// <summary>
         /// Checks if email exists asynchronously.
         /// </summary>
         /// <param name="email">The email.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether email exists.</returns>
         Task<bool> EmailExistsAsync(string email);
 
         /// <summary>
         /// Adds the user asynchronously.
         /// </summary>
         /// <param name="user">The user.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task AddUserAsync(User user);
 
         /// <summary>
         /// Saves the changes asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task SaveChangesAsync();
     }
 }

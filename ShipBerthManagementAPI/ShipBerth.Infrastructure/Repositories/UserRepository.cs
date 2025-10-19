@@ -30,7 +30,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Gets the user by username asynchronously.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <returns></returns>
+        /// <returns>User.</returns>
         public async Task<User?> GetUserByUsernameAsync(string username)
         {
             return await this.context.Users
@@ -41,7 +41,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Gets the user by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>User.</returns>
         public async Task<User?> GetUserByIdAsync(int id)
         {
             return await this.context.Users.FindAsync(id);
@@ -50,7 +50,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <summary>
         /// Gets all users asynchronous.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of users.</returns>
         public async Task<List<User>> GetAllUsersAsync()
         {
             return await this.context.Users.ToListAsync();
@@ -60,7 +60,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Checks if user exists asynchronously.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether user exists.</returns>
         public async Task<bool> UserExistsAsync(string username)
         {
             return await this.context.Users.AnyAsync(u => u.Username == username);
@@ -70,7 +70,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// Checks if email exists asynchronously.
         /// </summary>
         /// <param name="email">The email.</param>
-        /// <returns></returns>
+        /// <returns>True or false, whether email exists.</returns>
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await this.context.Users.AnyAsync(u => u.Email == email);

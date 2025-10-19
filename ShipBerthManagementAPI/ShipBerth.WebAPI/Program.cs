@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using ShipBerth.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,6 +67,9 @@ builder.Services.AddSwaggerGen(c =>
         },
     });
 });
+
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+               loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
 
 var app = builder.Build();
 

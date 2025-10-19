@@ -15,30 +15,21 @@ namespace ShipBerth.Application.Interfaces
         /// Creates the reservation asynchronously.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
-        Task<ReservationDTO> CreateReservationAsync(ReservationRequestDTO request, int userId);
+        /// <returns>Reservation.</returns>
+        Task<ReservationDTO> CreateReservationAsync(ReservationRequestDTO request);
 
         /// <summary>
         /// Cancels the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
-        Task<bool> CancelReservationAsync(int reservationId, int userId);
-
-        /// <summary>
-        /// Gets the user reservations asynchronously.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
-        Task<List<ReservationDTO>> GetUserReservationsAsync(int userId);
+        /// <returns>True or false, whether reservation is cancelled.</returns>
+        Task<bool> CancelReservationAsync(int reservationId);
 
         /// <summary>
         /// Gets the reservation asynchronously.
         /// </summary>
         /// <param name="reservationId">The reservation identifier.</param>
-        /// <returns></returns>
+        /// <returns>Reservation.</returns>
         Task<ReservationDTO> GetReservationAsync(int reservationId);
     }
 }
