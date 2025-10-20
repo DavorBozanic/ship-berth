@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+.required:after {
+  content: '*';
+  color: red;
+}
+
+.card-size {
+    min-width: 400px;
+} 
+
+.fixed-logo-size {
+  width: 350px !important;
+  max-width: 350px !important;
+  height: auto;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }

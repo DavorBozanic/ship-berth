@@ -1,0 +1,144 @@
+<div
+  class="d-flex flex-column justify-content-center align-items-center vh-100">
+  <div class="d-flex justify-content-center align-items-center">
+    <img
+      class="w-25 m-3 fixed-logo-size"
+      src="assets/images/logo.png"
+      alt="Maritime Center of Excellence d.o.o. logo" />
+  </div>
+  <div class="border rounded card-size">
+    <div class="p-4">
+      <form [formGroup]="registerForm">
+        <h4 class="fw-bold">Register</h4>
+        <div class="mt-3">
+          <label for="inputFirstName" class="form-label required">First name</label>
+          <input
+            id="inputFirstName"
+            type="text"
+            class="form-control"
+            formControlName="firstName"
+            required />
+          <div class="invalid-feedback d-block"
+            *ngIf="
+              (registerForm.get('firstName')?.touched &&
+              registerForm.get('firstName')?.invalid) ||
+              (registerForm.get('firstName')?.dirty &&
+              registerForm.get('firstName')?.invalid)">
+            Field is required
+          </div>
+        </div>
+        <div class="mt-3">
+          <label for="inputLastName" class="form-label required">Last name</label>
+          <input
+            id="inputLastName"
+            type="text"
+            class="form-control"
+            formControlName="lastName"
+            required />
+          <div class="invalid-feedback d-block"
+            *ngIf="
+              (registerForm.get('lastName')?.touched &&
+              registerForm.get('lastName')?.invalid) ||
+              (registerForm.get('lastName')?.dirty &&
+              registerForm.get('lastName')?.invalid)">
+              Field is required
+            </div>
+        </div>
+        <div class="mt-3">
+          <label for="inputUsername" class="form-label required">Username</label>
+          <input
+            id="inputUsername"
+            type="text"
+            class="form-control"
+            formControlName="username"
+            required />
+          <div class="invalid-feedback d-block"
+            *ngIf="
+              registerForm.get('username')?.invalid &&
+              (registerForm.get('username')?.dirty ||
+              registerForm.get('username')?.touched)">
+            <div *ngIf="registerForm.get('username')?.hasError('required')">
+              Field is required
+            </div>
+            <div *ngIf="registerForm.get('username')?.hasError('minlength')">
+              Length must be greater than 3
+            </div>
+            <div *ngIf="registerForm.get('username')?.hasError('pattern')">
+              Username must have only letters, numbers, underscore, dot and cannot
+              be longer than 20 characters
+            </div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <div d-flex justify-content-between>
+            <label for="inputPassword" class="form-label required">Password</label>
+          </div>
+          <div class="input-group">
+            <input
+              id="inputPassword"
+              [type]="!isPasswordHidden ? 'password' : 'text'"
+              class="form-control"
+              formControlName="password"
+              required />
+            <button
+              class="input-group-text"
+              (click)="isPasswordHidden = !isPasswordHidden">
+              <i [ngClass]="isPasswordHidden ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'">
+              </i>
+            </button>
+          </div>
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+              registerForm.get('password')?.invalid &&
+              (registerForm.get('password')?.dirty ||
+              registerForm.get('password')?.touched)">
+            <div *ngIf="registerForm.get('password')?.hasError('required')">
+              Field is required
+            </div>
+            <div *ngIf="registerForm.get('password')?.hasError('pattern')">
+              Password must be at least 8 characters long and contain at least one
+              number, one uppercase letter, one lowercase letter, and no
+              whitespace
+            </div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <label for="inputEmail" class="form-label required">E-mail</label>
+          <input
+            id="inputEmail"
+            type="email"
+            class="form-control"
+            formControlName="email"
+            required />
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="
+              registerForm.get('email')?.invalid &&
+              (registerForm.get('email')?.dirty ||
+              registerForm.get('email')?.touched)">
+            <div *ngIf="registerForm.get('email')?.hasError('required')">
+              Field is required
+            </div>
+            <div *ngIf="registerForm.get('email')?.hasError('pattern')">
+              Email is invalid
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-between py-2 mt-4">
+          <button
+            type="submit"
+            class="btn btn-secondary w-50"
+            [disabled]="!registerForm.valid">
+            Register
+          </button>
+          <div class="px-1"></div>
+          <button type="button" class="btn btn-light w-50" appBackButton>
+            Back
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="text-muted pt-4" [innerHTML]="copyrightInformation"></div>
+</div>
