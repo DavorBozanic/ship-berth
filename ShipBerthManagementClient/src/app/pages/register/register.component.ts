@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { copyrightInformation } from '../../common/configurations/copyright';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { BackButtonDirective } from '../../common/directives/back-button.directive';
+import { RegisterRequestDTO } from '../../services/models/RegisterRequestDTO';
 
 @Component({
   selector: 'app-register',
@@ -14,19 +15,10 @@ import { BackButtonDirective } from '../../common/directives/back-button.directi
 })
 export class RegisterComponent {
   public isPasswordHidden: boolean = true;
-  public isPasswordConfirmHidden: boolean = true;
   public copyrightInformation: string = copyrightInformation;
   public registerForm: FormGroup;
-  public registerSuccess: boolean = true;
-
-  private passwordsEqualValidator(
-    control: AbstractControl
-  ): { passwordMatch: boolean } | null {
-    const password = control.get('password')?.value;
-    const passwordConfirm = control.get('passwordConfirm')?.value;
-
-    return password !== passwordConfirm ? { passwordMatch: true } : null;
-  }
+  public registerSuccess: string = '';
+  public registrationError: string = '';
 
   public constructor(private formBuilder: FormBuilder, private authService: AuthService) {
     this.registerForm = this.formBuilder.group(
@@ -48,13 +40,6 @@ export class RegisterComponent {
             // Validators.pattern(regex.password)
           ],
         ],
-        passwordConfirm: [
-          '',
-          [
-            Validators.required,
-            // Validators.pattern(regex.password)
-          ],
-        ],
         email: ['',
            [
             Validators.required, 
@@ -62,18 +47,26 @@ export class RegisterComponent {
           ]
         ],
       },
-      { validators: this.passwordsEqualValidator }
     );
   }
 
-  
   public onRegister(): void {
-    this.authService.login().subscribe((authSuccess: boolean) => {
-      this.registerSuccess = authSuccess;
+      const registerRequest: RegisterRequestDTO = this.registerForm.value;
 
-      if (this.registerSuccess) {
-        console.log('Test');
+     this.authService.register(registerRequest).subscribe({
+      next: (response) => {
+        
+        if (response.success) {
+          this.registerSuccess = response.message;
+          
+        } else {
+          this.registrationError = response.message;
+        }
+      },
+      error: (error) => {     
+        this.registrationError = error.error.message;
       }
     });
   }
 }
+

@@ -1,1 +1,1 @@
-export const copyrightInformation: string = `Copyright © ${new Date().getFullYear()} - Maritime Center of Excellence d.o.o.`;
+export const copyrightInformation = `Copyright © ${new Date().getFullYear()} - Maritime Center of Excellence d.o.o.`;

@@ -1,0 +1,17 @@
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+  <div class="d-flex justify-content-center align-items-center">
+    <img
+      class="w-25 m-3 fixed-logo-size"
+      src="assets/images/logo.png"
+      alt="Maritime Center of Excellence d.o.o. logo" />
+  </div>
+    <div class="d-flex justify-content-center my-3">
+      <button
+        type="submit"
+        class="btn btn-secondary w-25"
+        (click)="onLogout()">
+        Logout
+      </button>
+    </div>
+  <div class="text-muted pt-4" [innerHTML]="copyrightInformation"></div>
+</div>
