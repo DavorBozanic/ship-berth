@@ -14,8 +14,17 @@
 }
 
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.tab-container {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.tab-content {
+  border-top: none;
+}

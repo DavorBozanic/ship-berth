@@ -1,17 +1,35 @@
-import { Component } from '@angular/core';
-import { DxButtonModule, DxDataGridModule, DxTextBoxModule } from 'devextreme-angular';
+import { Component, OnInit } from '@angular/core';
+import { DxDataGridModule } from 'devextreme-angular';
+import { UserDTO } from '../models/UserDTO';
+import { UserService } from '../../services/user.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [DxDataGridModule, DxButtonModule, DxTextBoxModule],
+  imports: [DxDataGridModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
-export class UserComponent {
-  users = [
-      { id: 1, name: 'Alice', email: 'alice@example.com', role: 'Admin' },
-      { id: 2, name: 'Bob', email: 'bob@example.com', role: 'User' },
-      { id: 3, name: 'Charlie', email: 'charlie@example.com', role: 'User' },
-    ];
+export class UserComponent implements OnInit {
+  users: UserDTO[] = [];
+
+  public constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  private loadUsers(): void {
+    this.userService.getUsers()
+      .pipe(
+        catchError(err => {
+          console.error('Error loading users:', err);
+          return of([]);
+        })
+      )
+      .subscribe(users => {
+        this.users = users;
+      });
+  }
 }

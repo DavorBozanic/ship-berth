@@ -1,1 +1,20 @@
-<p>ship works!</p>
+<div class="tab-container p-3 mt-3 mx-3">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page">Users</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3 p-3">
+         <dx-data-grid
+            [dataSource]="ships"
+            [showBorders]="true"
+            [paging]="{ pageSize: 10 }"
+            [pager]="{ showPageSizeSelector: true, allowedPageSizes: [5, 10, 20] }">
+            <dxi-column dataField="firstName" caption="First name"></dxi-column>
+            <dxi-column dataField="lastName" caption="Last name"></dxi-column>
+            <dxi-column dataField="username" caption="Username"></dxi-column>
+            <dxi-column dataField="email" caption="Email"></dxi-column>
+        </dx-data-grid>
+    </div>
+</div>

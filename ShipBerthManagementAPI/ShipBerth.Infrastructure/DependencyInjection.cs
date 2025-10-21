@@ -37,6 +37,7 @@ namespace ShipBerth.Infrastructure
             services.AddScoped<IBerthService, BerthService>();
             services.AddScoped<IShipService, ShipService>();
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

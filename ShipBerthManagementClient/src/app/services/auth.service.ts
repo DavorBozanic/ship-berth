@@ -18,29 +18,29 @@ import { JWTPayload } from './models/JWTPayload';
 export class AuthService {
   private readonly apiUrl: string = `${environment.apiUrl}/auth`;
 
-  private readonly tokenExpirationTime: string = 'expires_at';
+  private readonly TOKEN_KEY = 'token';
+  private readonly EXPIRES_AT_KEY = 'expires_at';
 
-  public constructor(private router: Router, private http: HttpClient) {}
+  public constructor(private http: HttpClient, private router: Router) {}
 
   public login(loginData: LoginRequestDTO): Observable<LoginResponseDTO> {
-    return this.http.post<LoginResponseDTO>(`${this.apiUrl}/login`, loginData)
-      .pipe(
-        tap(response => {
-          if (response) {
-            const payload: JWTPayload | null = this.validateToken(response.token);
+    return this.http.post<LoginResponseDTO>(`${this.apiUrl}/login`, loginData).pipe(
+      tap(response => {
+        if (response?.token) {
+          const payload = this.validateToken(response.token);
 
-            if (!payload) {
-              throw new Error('Invalid token.');
-            }
-
-            this.setSession(payload);
+          if (!payload) {
+            throw new Error('Invalid token.');
           }
-        }),
-        catchError(err => {
-          console.error('Login failed.', err.error?.message || err.message);
-          return throwError(() => err);
-        })
-      );
+
+          this.setSession(response.token, payload.exp);
+        }
+      }),
+      catchError(err => {
+        console.error('Login failed:', err.error?.message || err.message);
+        return throwError(() => err);
+      })
+    );
   }
 
   public logout(): void {
@@ -56,33 +56,34 @@ export class AuthService {
     }
   }
 
-  private setSession(payload: JWTPayload): void {
-    localStorage.setItem(
-      this.tokenExpirationTime,
-      moment(payload.exp, 'seconds').unix().toString()
-    );
+  private setSession(token: string, exp: number): void {
+    localStorage.setItem(this.TOKEN_KEY, token);
+    localStorage.setItem(this.EXPIRES_AT_KEY, exp.toString());
   }
 
   private removeSession(): void {
-    localStorage.removeItem(this.tokenExpirationTime);
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.EXPIRES_AT_KEY);
   }
 
   private getTokenExpiration(): moment.Moment | null {
-    const expiresAt: string | null = localStorage.getItem(
-      this.tokenExpirationTime
-    );
+    const expiresAt = localStorage.getItem(this.EXPIRES_AT_KEY);
 
-    return expiresAt !== null ? moment.unix(parseInt(expiresAt)) : expiresAt;
+    return expiresAt ? moment.unix(parseInt(expiresAt, 10)) : null;
   }
 
   private hasTokenExpired(): boolean {
-    const tokenExpiration: moment.Moment | null = this.getTokenExpiration();
+    const expiration = this.getTokenExpiration();
 
-    return tokenExpiration ? moment().isAfter(tokenExpiration) : true;
+    return !expiration || moment().isAfter(expiration);
   }
 
   public isLoggedIn(): boolean {
-    return !this.hasTokenExpired();
+    return !this.hasTokenExpired() && !!this.getToken();
+  }
+
+  public getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
   public register(registerData: RegisterRequestDTO): Observable<RegisterResponseDTO> {
