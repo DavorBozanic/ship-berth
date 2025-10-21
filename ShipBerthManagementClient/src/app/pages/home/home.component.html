@@ -1,4 +1,4 @@
-<div class="d-flex vh-100 bg-white">
+<!-- <div class="d-flex vh-100 bg-white">
   <div class="d-flex flex-column vh-100 sidebar">
     <div class="d-flex justify-content-center align-items-center p-3 m-2">
       <img
@@ -7,17 +7,27 @@
         alt="Maritime Center of Excellence logo" />
     </div>
     <div class="d-flex flex-column border-top border-bottom border-secondary flex-grow-1 m-2 py-2 px-1">
+      <button class="btn btn-outline-dark w-100 mb-2 d-flex justify-content-center" routerLink="user">
+        <div class="d-none d-md-block">
+          <div class="d-flex justify-content-start align-items-center">
+            <span class="bi bi-person-fill me-1 text-white"></span>
+            <span class="ms-2 d-none d-md-inline text-white">Users</span>
+          </div>
+        </div>
+      </button>
       <button class="btn btn-outline-dark w-100 mb-2 d-flex justify-content-center" routerLink="ship">
         <div class="d-none d-md-block">
           <div class="d-flex justify-content-start align-items-center">
-            <span class="bi bi-calculator-fill me-2"></span>Ships
+            <span class="bi bi-compass-fill me-1 text-white"></span>
+            <span class="ms-2 d-none d-md-inline text-white">Ships</span>
           </div>
         </div>
       </button>
       <button class="btn btn-outline-dark w-100 d-flex justify-content-center" routerLink="berth">
         <div class="d-none d-md-block">
           <div class="d-flex justify-content-start align-items-center">
-            <span class="bi bi-graph-up me-2"></span>Berths
+            <span class="bi bi-water me-1 text-white"></span>
+            <span class="ms-2 d-none d-md-inline text-white">Berths</span>
           </div>
         </div>
       </button>
@@ -25,12 +35,69 @@
 
     <div class="d-flex flex-column justify-content-center align-items-center px-1 pb-2 mx-2">
       <button class="btn btn-outline-dark w-100 d-flex justify-content-center align-items-center" (click)="onLogout()">
-        <span class="bi bi-arrow-right-square"></span>
-        <span class="ms-2 d-none d-md-inline">Logout</span>
+        <span class="bi bi-arrow-right-square text-white"></span>
+        <span class="ms-2 d-none d-md-inline text-white">Logout</span>
       </button>
     </div>
   </div>
   <div class="d-flex flex-column flex-grow-1 home-content">
     <router-outlet></router-outlet>
   </div>
+</div> -->
+
+
+<div class="d-flex vh-100 bg-white">
+  <!-- Sidebar -->
+  <div class="d-flex flex-column vh-100 sidebar">
+    
+    <!-- Logo -->
+    <div class="d-flex justify-content-center align-items-center p-3 m-2">
+      <img
+        class="w-75"
+        src="assets/images/logo.png"
+        alt="Maritime Center of Excellence logo" />
+    </div>
+    
+    <!-- Navigation Links -->
+    <div class="d-flex flex-column border-top border-bottom border-secondary flex-grow-1 m-2 py-2 px-1">
+      
+      <!-- Users Link -->
+      <a class="nav-link w-100 mb-2 d-flex justify-content-center align-items-center" 
+         routerLink="user" routerLinkActive="active">
+        <span class="bi bi-person-fill me-1"></span>
+        <span class="ms-2 d-none d-md-inline">Users</span>
+      </a>
+
+      <!-- Ships Link -->
+      <a class="nav-link w-100 mb-2 d-flex justify-content-center align-items-center" 
+         routerLink="ship" routerLinkActive="active">
+        <span class="bi bi-compass-fill me-1"></span>
+        <span class="ms-2 d-none d-md-inline">Ships</span>
+      </a>
+
+      <!-- Berths Link -->
+      <a class="nav-link w-100 d-flex justify-content-center align-items-center" 
+         routerLink="berth" routerLinkActive="active">
+        <span class="bi bi-water me-1"></span>
+        <span class="ms-2 d-none d-md-inline">Berths</span>
+      </a>
+
+    </div>
+
+    <!-- Logout Link -->
+    <div class="d-flex flex-column justify-content-center align-items-center px-1 pb-2 mx-2">
+      <a class="nav-link w-100 d-flex justify-content-center align-items-center" 
+         (click)="onLogout()">
+        <span class="bi bi-arrow-right-square me-1"></span>
+        <span class="ms-2 d-none d-md-inline">Logout</span>
+      </a>
+    </div>
+    
+  </div>
+
+  <!-- Main Content -->
+  <div class="d-flex flex-column flex-grow-1 home-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+
