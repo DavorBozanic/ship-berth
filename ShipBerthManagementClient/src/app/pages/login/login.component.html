@@ -65,8 +65,8 @@
           </button>
         </div>
         <div class="invalid-feedback d-block d-flex justify-content-center"
-          *ngIf="!authSuccess">
-          Authentication failed
+          *ngIf="authError">
+           {{ authError }}
         </div>
       </form>
     </div>

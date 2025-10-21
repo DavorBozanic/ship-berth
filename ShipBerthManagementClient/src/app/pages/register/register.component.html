@@ -143,6 +143,14 @@
             Back
           </button>
         </div>
+        <div class="invalid-feedback d-block d-flex justify-content-center"
+          *ngIf="registerError">
+           {{ registerError }}
+        </div>
+        <div class="invalid-feedback d-block d-flex justify-content-center"
+          *ngIf="registerSuccess">
+           {{ registerSuccess }}
+        </div>
       </form>
     </div>
   </div>

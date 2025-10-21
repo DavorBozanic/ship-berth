@@ -20,7 +20,7 @@ export class RegisterComponent {
   public copyrightInformation: string = copyrightInformation;
   public registerForm: FormGroup;
   public registerSuccess: string = '';
-  public registrationError: string = '';
+  public registerError: string = '';
 
   public constructor(private formBuilder: FormBuilder, private authService: AuthService) {
     this.registerForm = this.formBuilder.group(
@@ -62,16 +62,14 @@ export class RegisterComponent {
 
     this.authService.register(registerRequest).subscribe({
       next: (response) => {
-        
         if (response.success) {
           this.registerSuccess = response.message;
-          
         } else {
-          this.registrationError = response.message;
+          this.registerError = response.message;
         }
       },
       error: (error) => {     
-        this.registrationError = error.error.message;
+        this.registerError = error.error.message;
       }
     });
   }

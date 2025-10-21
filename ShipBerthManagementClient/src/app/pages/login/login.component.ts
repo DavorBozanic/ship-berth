@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { LoginRequestDTO } from '../../services/models/LoginRequestDTO';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   public isPasswordHidden: boolean = true;
   public copyrightInformation: string = copyrightInformation;
   public loginForm: FormGroup;
-  public authSuccess: boolean = true;
+  public authSuccess: string = '';
+  public authError: string = '';
 
   public constructor(
     private formBuilder: FormBuilder,
@@ -30,11 +32,16 @@ export class LoginComponent implements OnInit {
   }
 
   public onLogin(): void {
-    this.authService.login().subscribe((authSuccess: boolean) => {
-      this.authSuccess = authSuccess;
+    const loginRequest: LoginRequestDTO = this.loginForm.value;
 
-      if (authSuccess) {
-        this.router.navigate(['home']);
+    this.authService.login(loginRequest).subscribe({
+      next: (response) => {
+        if (response) {
+           this.router.navigate(['home']);
+        }
+      },
+      error: (error) => {     
+        this.authError = error.error.message;
       }
     });
   }

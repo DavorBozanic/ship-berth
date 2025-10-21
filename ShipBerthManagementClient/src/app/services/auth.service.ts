@@ -2,42 +2,45 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import moment from 'moment';
-import { Observable, of, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequestDTO } from './models/RegisterRequestDTO';
 import { RegisterResponseDTO } from './models/RegisterResponseDTO';
 import { environment } from '../common/configurations/environment';
-
-interface JWTPayload {
-  expires_in: string;
-}
+import { LoginRequestDTO } from './models/LoginRequestDTO';
+import { LoginResponseDTO } from './models/LoginResponseDTO';
+import { JWTPayload } from './models/JWTPayload';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth`;
+  private readonly apiUrl: string = `${environment.apiUrl}/auth`;
 
-  private readonly token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzX2luIjo3MjAwfQ.TmOFlmH23D89i_glot1u9b4EfGkgTon_itvsNc7LQOo';
   private readonly tokenExpirationTime: string = 'expires_at';
 
   public constructor(private router: Router, private http: HttpClient) {}
 
-  public login(): Observable<boolean> {
-    const result: boolean = Math.random() < 0.5;
+  public login(loginData: LoginRequestDTO): Observable<LoginResponseDTO> {
+    return this.http.post<LoginResponseDTO>(`${this.apiUrl}/login`, loginData)
+      .pipe(
+        tap(response => {
+          if (response) {
+            const payload: JWTPayload | null = this.validateToken(response.token);
 
-    if (result) {
-      const payload: JWTPayload | null = this.validateToken(this.token);
+            if (!payload) {
+              throw new Error('Invalid token.');
+            }
 
-      if (!payload) {
-        return of(false);
-      }
-      this.setSession(payload);
-    }
-
-    return of(result);
+            this.setSession(payload);
+          }
+        }),
+        catchError(err => {
+          console.error('Login failed.', err.error?.message || err.message);
+          return throwError(() => err);
+        })
+      );
   }
 
   public logout(): void {
@@ -56,7 +59,7 @@ export class AuthService {
   private setSession(payload: JWTPayload): void {
     localStorage.setItem(
       this.tokenExpirationTime,
-      moment().add(payload.expires_in, 'seconds').unix().toString()
+      moment(payload.exp, 'seconds').unix().toString()
     );
   }
 
@@ -83,13 +86,6 @@ export class AuthService {
   }
 
   public register(registerData: RegisterRequestDTO): Observable<RegisterResponseDTO> {
-    return this.http.post<RegisterResponseDTO>(`${this.apiUrl}/register`, registerData)
-      .pipe(
-        tap(response => {
-          if (response.success) {
-            console.log('Registration successful:', response.message);
-          }
-        })
-      );
+    return this.http.post<RegisterResponseDTO>(`${this.apiUrl}/register`, registerData);
   }
 }
