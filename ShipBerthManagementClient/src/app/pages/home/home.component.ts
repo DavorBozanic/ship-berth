@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { copyrightInformation } from '../../common/constants/copyright';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  public copyrightInformation: string = copyrightInformation;
-
   public constructor(private authService: AuthService) {}
 
   public onLogout(): void {
