@@ -1,0 +1,8 @@
+.tab-container {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.tab-content {
+    border-top: none;
+}

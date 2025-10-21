@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { LoginRequestDTO } from '../../services/models/LoginRequestDTO';
+import { trimFormValues } from '../../common/helpers/form-utility';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,8 @@ export class LoginComponent implements OnInit {
   }
 
   public onLogin(): void {
+    trimFormValues(this.loginForm);
+
     const loginRequest: LoginRequestDTO = this.loginForm.value;
 
     this.authService.login(loginRequest).subscribe({

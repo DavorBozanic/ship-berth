@@ -26,6 +26,12 @@ namespace ShipBerth.Application.Interfaces
         Task<User?> GetUserByIdAsync(int id);
 
         /// <summary>
+        /// Gets all users asynchronously.
+        /// </summary>
+        /// <returns>List of users.</returns>
+        Task<List<User>> GetAllUsersAsync();
+
+        /// <summary>
         /// Checks if user exists asynchronously.
         /// </summary>
         /// <param name="username">The username.</param>
