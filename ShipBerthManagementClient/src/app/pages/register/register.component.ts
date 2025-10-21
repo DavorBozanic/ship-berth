@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { copyrightInformation } from '../../common/constants/copyright';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { BackButtonDirective } from '../../common/directives/back-button.directive';

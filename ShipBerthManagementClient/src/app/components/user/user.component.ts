@@ -12,7 +12,7 @@ import { catchError, of } from 'rxjs';
   styleUrl: './user.component.css'
 })
 export class UserComponent implements OnInit {
-  users: UserDTO[] = [];
+  public users: UserDTO[] = [];
 
   public constructor(private userService: UserService) {}
 

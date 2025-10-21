@@ -1,6 +1,5 @@
 export interface ShipDTO {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
+  name: string;
+  size: number;
+  type: string;
 }

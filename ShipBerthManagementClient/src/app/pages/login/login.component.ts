@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   public isPasswordHidden: boolean = true;
   public copyrightInformation: string = copyrightInformation;
   public loginForm: FormGroup;
-  public authSuccess: string = '';
   public authError: string = '';
 
   public constructor(

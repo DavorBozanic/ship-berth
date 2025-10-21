@@ -1,5 +1,4 @@
-<div
-  class="d-flex flex-column justify-content-center align-items-center vh-100">
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
   <div class="d-flex justify-content-center align-items-center">
     <img
       class="w-25 m-3 fixed-logo-size"
@@ -17,6 +16,7 @@
             type="text"
             class="form-control"
             formControlName="firstName"
+            placeholder="First name"
             required />
           <div class="invalid-feedback d-block"
             *ngIf="
@@ -34,6 +34,7 @@
             type="text"
             class="form-control"
             formControlName="lastName"
+            placeholder="Last name"
             required />
           <div class="invalid-feedback d-block"
             *ngIf="
@@ -51,6 +52,7 @@
             type="text"
             class="form-control"
             formControlName="username"
+            placeholder="Username"
             required />
           <div class="invalid-feedback d-block"
             *ngIf="
@@ -81,6 +83,7 @@
               [type]="!isPasswordHidden ? 'password' : 'text'"
               class="form-control"
               formControlName="password"
+              placeholder="Password"
               required />
             <button
               class="input-group-text"
@@ -115,6 +118,7 @@
             type="email"
             class="form-control"
             formControlName="email"
+            placeholder="E-mail"
             required />
           <div
             class="invalid-feedback d-block"
