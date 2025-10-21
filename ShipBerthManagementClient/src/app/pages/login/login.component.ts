@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { copyrightInformation } from '../../common/constants/copyright';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -15,16 +15,16 @@ import { trimFormValues } from '../../common/helpers/form-utility';
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
-  public isPasswordHidden: boolean = true;
+  public isPasswordHidden = true;
   public copyrightInformation: string = copyrightInformation;
   public loginForm: FormGroup;
-  public authError: string = '';
+  public authError = '';
 
-  public constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-  ) {
+  private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  public constructor() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],

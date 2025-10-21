@@ -1,4 +1,4 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, inject } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Directive({
@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
   standalone: true
 })
 export class BackButtonDirective {
-  public constructor(private location: Location) {}
+  private location = inject(Location);
 
   @HostListener('click')
   public onClick(): void {

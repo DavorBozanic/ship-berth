@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-berth',
@@ -7,8 +7,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './berth.component.html',
   styleUrl: './berth.component.css'
 })
-export class BerthComponent implements OnInit {
-  ngOnInit(): void {
-    
-  }
+export class BerthComponent {
 }

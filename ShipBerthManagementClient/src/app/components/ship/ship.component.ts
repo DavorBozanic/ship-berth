@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular';
 import { ShipDTO } from '../models/ShipDTO';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,7 +16,9 @@ export class ShipComponent implements OnInit {
   public shipForm: FormGroup;
   public ships: ShipDTO[] = [];
 
-  public constructor(private formBuilder: FormBuilder) {
+  private formBuilder = inject(FormBuilder);
+
+  public constructor() {
     this.shipForm = this.formBuilder.group({
       name: ['', Validators.required],
       size: ['', [Validators.required, Validators.pattern(shipSizeRegex)]],
@@ -25,6 +27,7 @@ export class ShipComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log();
   }
 
   public onSave(): void {

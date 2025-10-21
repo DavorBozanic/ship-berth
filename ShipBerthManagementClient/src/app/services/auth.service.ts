@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import moment from 'moment';
@@ -17,11 +17,11 @@ import { JWTPayload } from './models/JWTPayload';
 
 export class AuthService {
   private readonly apiUrl: string = `${environment.apiUrl}/auth`;
-
   private readonly TOKEN_KEY = 'token';
   private readonly EXPIRES_AT_KEY = 'expires_at';
 
-  public constructor(private http: HttpClient, private router: Router) {}
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
   public login(loginData: LoginRequestDTO): Observable<LoginResponseDTO> {
     return this.http.post<LoginResponseDTO>(`${this.apiUrl}/login`, loginData).pipe(

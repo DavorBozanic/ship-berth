@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { copyrightInformation } from '../../common/constants/copyright';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -16,13 +16,16 @@ import { trimFormValues } from '../../common/helpers/form-utility';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  public isPasswordHidden: boolean = true;
+  public isPasswordHidden = true;
   public copyrightInformation: string = copyrightInformation;
   public registerForm: FormGroup;
-  public registerSuccess: string = '';
-  public registerError: string = '';
+  public registerSuccess = '';
+  public registerError = '';
 
-  public constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthService);
+
+  public constructor() {
     this.registerForm = this.formBuilder.group(
       {
         firstName: ['', Validators.required],

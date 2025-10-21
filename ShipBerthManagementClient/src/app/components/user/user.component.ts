@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular';
 import { UserDTO } from '../models/UserDTO';
 import { UserService } from '../../services/user.service';
@@ -14,7 +14,7 @@ import { catchError, of } from 'rxjs';
 export class UserComponent implements OnInit {
   public users: UserDTO[] = [];
 
-  public constructor(private userService: UserService) {}
+  private userService = inject(UserService);
 
   ngOnInit(): void {
     this.loadUsers();
