@@ -61,11 +61,13 @@
               Field is required
             </div>
             <div *ngIf="registerForm.get('username')?.hasError('minlength')">
-              Length must be greater than 3
+              Username must have more than 3 characters
+            </div>
+              <div *ngIf="registerForm.get('username')?.hasError('maxlength')">
+              Username can't have more than 10 characters
             </div>
             <div *ngIf="registerForm.get('username')?.hasError('pattern')">
-              Username must have only letters, numbers, underscore, dot and cannot
-              be longer than 20 characters
+              Username can't have whitespaces or special characters
             </div>
           </div>
         </div>
@@ -87,8 +89,7 @@
               </i>
             </button>
           </div>
-          <div
-            class="invalid-feedback d-block"
+          <div class="invalid-feedback d-block"
             *ngIf="
               registerForm.get('password')?.invalid &&
               (registerForm.get('password')?.dirty ||
@@ -96,10 +97,14 @@
             <div *ngIf="registerForm.get('password')?.hasError('required')">
               Field is required
             </div>
+            <div *ngIf="registerForm.get('password')?.hasError('minlength')">
+              Password must have more than 8 characters
+            </div>
+            <div *ngIf="registerForm.get('password')?.hasError('maxlength')">
+              Password can't have more than 20 characters.
+            </div>
             <div *ngIf="registerForm.get('password')?.hasError('pattern')">
-              Password must be at least 8 characters long and contain at least one
-              number, one uppercase letter, one lowercase letter, and no
-              whitespace
+              Password must contain at least one number,<br/> one uppercase, one lowercase and one special character
             </div>
           </div>
         </div>

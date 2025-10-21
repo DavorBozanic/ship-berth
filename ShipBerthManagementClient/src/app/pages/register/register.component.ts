@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { copyrightInformation } from '../../common/constants/copyright';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { BackButtonDirective } from '../../common/directives/back-button.directive';
 import { RegisterRequestDTO } from '../../services/models/RegisterRequestDTO';
 import { emailRegex, passwordRegex, usernameRegex } from '../../common/constants/regex';
+import { trimFormValues } from '../../common/helpers/form-utility';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +32,7 @@ export class RegisterComponent {
           [
             Validators.required,
             Validators.minLength(4),
+            Validators.maxLength(10),
             Validators.pattern(usernameRegex),
           ],
         ],
@@ -38,6 +40,8 @@ export class RegisterComponent {
           '',
           [
             Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(20),
             Validators.pattern(passwordRegex)
           ],
         ],
@@ -52,9 +56,11 @@ export class RegisterComponent {
   }
 
   public onRegister(): void {
-      const registerRequest: RegisterRequestDTO = this.registerForm.value;
+    trimFormValues( this.registerForm);
 
-     this.authService.register(registerRequest).subscribe({
+    const registerRequest: RegisterRequestDTO = this.registerForm.value;
+
+    this.authService.register(registerRequest).subscribe({
       next: (response) => {
         
         if (response.success) {
