@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { copyrightInformation } from '../../common/configurations/copyright';
+import { copyrightInformation } from '../../common/constants/copyright';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';

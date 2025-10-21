@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { copyrightInformation } from '../../common/configurations/copyright';
+import { copyrightInformation } from '../../common/constants/copyright';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ import { copyrightInformation } from '../../common/configurations/copyright';
 })
 export class HomeComponent {
   public copyrightInformation: string = copyrightInformation;
-  
+
   public constructor(private authService: AuthService) {}
 
   public onLogout(): void {

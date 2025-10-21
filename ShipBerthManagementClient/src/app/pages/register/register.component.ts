@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { copyrightInformation } from '../../common/configurations/copyright';
+import { copyrightInformation } from '../../common/constants/copyright';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { BackButtonDirective } from '../../common/directives/back-button.directive';
 import { RegisterRequestDTO } from '../../services/models/RegisterRequestDTO';
+import { emailRegex, passwordRegex, usernameRegex } from '../../common/constants/regex';
 
 @Component({
   selector: 'app-register',
@@ -30,20 +31,20 @@ export class RegisterComponent {
           [
             Validators.required,
             Validators.minLength(4),
-            // Validators.pattern(regex.username),
+            Validators.pattern(usernameRegex),
           ],
         ],
         password: [
           '',
           [
             Validators.required,
-            // Validators.pattern(regex.password)
+            Validators.pattern(passwordRegex)
           ],
         ],
         email: ['',
            [
             Validators.required, 
-            // Validators.pattern(regex.email)
+            Validators.pattern(emailRegex)
           ]
         ],
       },

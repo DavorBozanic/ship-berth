@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { copyrightInformation } from '../../common/configurations/copyright';
+import { copyrightInformation } from '../../common/constants/copyright';
 
 @Component({
   selector: 'app-not-found',
