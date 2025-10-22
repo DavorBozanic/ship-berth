@@ -94,8 +94,8 @@ namespace ShipBerth.Infrastructure.Services
             await this.reservationRepository.AddReservationAsync(reservation);
             await this.reservationRepository.SaveChangesAsync();
 
-            // Update berth status to Reserved
-            berth.Status = BerthStatus.Reserved;
+            // Update berth status to Occupied
+            berth.Status = BerthStatus.Occupied;
             await this.berthRepository.UpdateBerthAsync(berth);
             await this.berthRepository.SaveChangesAsync();
 

@@ -147,19 +147,15 @@
             Back
           </button>
         </div>
-        <div class="invalid-feedback d-block d-flex justify-content-center"
-          *ngIf="registerError">
-           {{ registerError }}
-        </div>
       </form>
     </div>
   </div>
   <div class="text-muted pt-4" [innerHTML]="copyrightInformation"></div>
   <dx-toast
     [visible]="showToast"
-    message="User registered successfully!"
-    type="success"
-    [displayTime]="toastDisplayTime"
+    [message]="toastMessage"
+    [type]="toastType"
+    [displayTime]="1300"
     [width]="250"
     [height]="50"
     position="bottom center"

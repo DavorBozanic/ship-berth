@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { copyrightInformation } from '../../common/constants/copyright';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './not-found.component.html',
   styleUrl: './not-found.component.css'
 })

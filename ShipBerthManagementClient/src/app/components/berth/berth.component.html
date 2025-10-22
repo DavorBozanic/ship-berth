@@ -1,1 +1,179 @@
-<p>berth works!</p>
+<div class="tab-container p-3 mt-3 mx-3">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <button class="nav-link text-dark"
+        [class.active]="activeTab === 'berths'"
+        (click)="activeTab = 'berths'">
+        Berths
+    </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link text-dark"
+        [class.active]="activeTab === 'new'"
+        (click)="activeTab = 'new'">
+        New
+    </button>
+    </li>
+  </ul>
+  <div class="tab-content mt-3 p-3">
+    <div class="tab-pane fade"
+      [class.show]="activeTab === 'berths'"
+      [class.active]="activeTab === 'berths'"
+      id="ships-tab">
+      <dx-data-grid
+        [dataSource]="berths"
+        [showBorders]="true"
+        [paging]="{ enabled: false }"
+        [pager]="{ showPageSizeSelector: true, allowedPageSizes: [5, 10, 20] }">
+        <dxi-column dataField="name" caption="Name"></dxi-column>
+        <dxi-column dataField="size" caption="Size (in meters)"></dxi-column>
+        <dxi-column dataField="type" caption="Type"></dxi-column>
+        <dxi-column dataField="createdAt" caption="Created at" dataType="date" format="dd.MM.yyyy. HH:mm"></dxi-column>
+        <dxi-column caption="Edit" [width]="100" alignment="center" cellTemplate="editCell"></dxi-column>
+        <dxi-column caption="Delete" [width]="100" alignment="center" cellTemplate="deleteCell"></dxi-column>
+        <div *dxTemplate="let cell of 'editCell'">
+          <button class="btn btn-sm btn-light text-dark"
+            (click)="onEdit()"
+            title="Edit">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+        </div>
+        <div *dxTemplate="let cell of 'deleteCell'">
+          <button class="btn btn-sm btn-light text-dark"
+            (click)="onDelete(cell.data)"
+            title="Delete">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      </dx-data-grid>
+    </div>
+    <div class="tab-pane fade"
+      [class.show]="activeTab === 'new'"
+      [class.active]="activeTab === 'new'"
+      id="new-tab">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Add new berth</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="berthForm" (ngSubmit)="onSave()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                placeholder="Berth name"/>
+              <div class="invalid-feedback d-block"
+                *ngIf="
+                  berthForm.get('name')?.invalid &&
+                  (berthForm.get('name')?.touched ||
+                  berthForm.get('name')?.dirty)">
+                Field is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="location" class="form-label">Location</label>
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                formControlName="location"
+                placeholder="Location"/>
+              <div class="invalid-feedback d-block"
+                *ngIf="
+                  berthForm.get('location')?.invalid &&
+                  (berthForm.get('location')?.touched ||
+                  berthForm.get('location')?.dirty)">
+                Field is required
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="size" class="form-label">Maximum ship size (meters)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="size"
+                formControlName="size"
+                inputmode="decimal"
+                step="0.1"
+                placeholder="Ship size"/>
+              <div class="invalid-feedback d-block"
+                *ngIf="
+                  berthForm.get('size')?.invalid &&
+                  (berthForm.get('size')?.touched ||
+                  berthForm.get('size')?.dirty)">
+                <div *ngIf="berthForm.get('size')?.hasError('required')">
+                  Field is required
+                </div>
+                <div *ngIf="berthForm.get('size')?.hasError('pattern')">
+                  Minimum size is 5 meters, maximum is 100 meters, increments of 0.1
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="type" class="form-label">Type</label>
+              <input
+                type="text"
+                class="form-control"
+                id="type"
+                formControlName="type"
+                placeholder="Ship type"/>
+              <div class="invalid-feedback d-block"
+                *ngIf="
+                  berthForm.get('type')?.invalid &&
+                  (berthForm.get('type')?.touched ||
+                  berthForm.get('type')?.dirty)">
+                Field is required
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-dark"
+              [disabled]="!berthForm.valid">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <dx-toast
+    [visible]="showToast"
+    [message]="toastMessage"
+    [type]="toastType"
+    [displayTime]="1300"
+    [width]="250"
+    [height]="50"
+    position="bottom center"
+    (onHidden)="showToast = false">
+  </dx-toast>
+  <dx-popup
+    [width]="400"
+    [height]="230"
+    [showTitle]="true"
+    title="Information"
+    [dragEnabled]="false"
+    [hideOnOutsideClick]="true"
+    [showCloseButton]="true"
+    [(visible)]="isDeletePopupVisible">
+    <div class="p-3 text-center">
+      <p>Are you sure you want to delete the selected ship?</p>
+      <div class="d-flex justify-content-center gap-4 mt-5">
+        <button
+          type="button"
+          class="btn btn-dark d-flex align-items-center justify-content-center px-4"
+          (click)="confirmDelete()">
+          Delete
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary d-flex align-items-center justify-content-center px-4"
+          (click)="cancelDelete()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </dx-popup>
+</div>

@@ -31,7 +31,7 @@ namespace ShipBerth.Domain.Entities.Common
         /// <value>
         /// The created at.
         /// </value>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Gets or sets the updated at.

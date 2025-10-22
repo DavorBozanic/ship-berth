@@ -46,7 +46,7 @@ namespace ShipBerth.Infrastructure.Repositories
         }
 
         /// <summary>
-        /// Gets the ships by type asynchronous.
+        /// Gets the ships by type asynchronously.
         /// </summary>
         /// <param name="shipType">Type of the ship.</param>
         /// <returns>List of ships.</returns>

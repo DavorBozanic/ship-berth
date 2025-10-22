@@ -1,16 +1,14 @@
 <div class="tab-container p-3 mt-3 mx-3">
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <button
-        class="nav-link text-dark"
+      <button class="nav-link text-dark"
         [class.active]="activeTab === 'ships'"
         (click)="activeTab = 'ships'">
         Ships
     </button>
     </li>
     <li class="nav-item">
-      <button
-        class="nav-link text-dark"
+      <button class="nav-link text-dark"
         [class.active]="activeTab === 'new'"
         (click)="activeTab = 'new'">
         New
@@ -18,8 +16,7 @@
     </li>
   </ul>
   <div class="tab-content mt-3 p-3">
-    <div
-      class="tab-pane fade"
+    <div class="tab-pane fade"
       [class.show]="activeTab === 'ships'"
       [class.active]="activeTab === 'ships'"
       id="ships-tab">
@@ -32,16 +29,25 @@
         <dxi-column dataField="size" caption="Size (in meters)"></dxi-column>
         <dxi-column dataField="type" caption="Type"></dxi-column>
         <dxi-column dataField="createdAt" caption="Created at" dataType="date" format="dd.MM.yyyy. HH:mm"></dxi-column>
-        <dxi-column type="buttons" caption="Edit" [width]="80">
-          <dxi-button name="editCustom" [hint]="'Edit'" icon="edit" [onClick]="onEdit"></dxi-button>
-        </dxi-column>
-        <dxi-column type="buttons" caption="Delete" [width]="80">
-          <dxi-button name="deleteCustom" style="background-color: black !important" [hint]="'Delete'" icon="remove" [onClick]="onDelete"></dxi-button>
-        </dxi-column>
+        <dxi-column caption="Edit" [width]="100" alignment="center" cellTemplate="editCell"></dxi-column>
+        <dxi-column caption="Delete" [width]="100" alignment="center" cellTemplate="deleteCell"></dxi-column>
+        <div *dxTemplate="let cell of 'editCell'">
+          <button class="btn btn-sm btn-light text-dark"
+              (click)="onEdit()"
+              title="Edit">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+        </div>
+        <div *dxTemplate="let cell of 'deleteCell'">
+          <button class="btn btn-sm btn-light text-dark"
+              (click)="onDelete(cell.data)"
+              title="Delete">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
       </dx-data-grid>
     </div>
-    <div
-      class="tab-pane fade"
+    <div class="tab-pane fade"
       [class.show]="activeTab === 'new'"
       [class.active]="activeTab === 'new'"
       id="new-tab">
@@ -58,13 +64,12 @@
                 class="form-control"
                 id="name"
                 formControlName="name"
-                placeholder="Ship name"/>
-              <div
-                class="invalid-feedback d-block"
+                placeholder="Name"/>
+              <div class="invalid-feedback d-block"
                 *ngIf="
                   shipForm.get('name')?.invalid &&
                   (shipForm.get('name')?.touched ||
-                    shipForm.get('name')?.dirty)">
+                  shipForm.get('name')?.dirty)">
                 Field is required
               </div>
             </div>
@@ -78,12 +83,11 @@
                 inputmode="decimal"
                 step="0.1"
                 placeholder="Ship size"/>
-              <div
-                class="invalid-feedback d-block"
+              <div class="invalid-feedback d-block"
                 *ngIf="
                   shipForm.get('size')?.invalid &&
                   (shipForm.get('size')?.touched ||
-                    shipForm.get('size')?.dirty)">
+                  shipForm.get('size')?.dirty)">
                 <div *ngIf="shipForm.get('size')?.hasError('required')">
                   Field is required
                 </div>
@@ -100,12 +104,11 @@
                 id="type"
                 formControlName="type"
                 placeholder="Ship type"/>
-              <div
-                class="invalid-feedback d-block"
+              <div class="invalid-feedback d-block"
                 *ngIf="
                   shipForm.get('type')?.invalid &&
                   (shipForm.get('type')?.touched ||
-                    shipForm.get('type')?.dirty)">
+                  shipForm.get('type')?.dirty)">
                 Field is required
               </div>
             </div>
@@ -122,12 +125,39 @@
   </div>
   <dx-toast
     [visible]="showToast"
-    message="Ship created successfully!"
-    type="success"
-    [displayTime]="toastDisplayTime"
+    [message]="toastMessage"
+    [type]="toastType"
+    [displayTime]="1300"
     [width]="250"
     [height]="50"
     position="bottom center"
     (onHidden)="showToast = false">
   </dx-toast>
+  <dx-popup
+    [width]="400"
+    [height]="230"
+    [showTitle]="true"
+    title="Information"
+    [dragEnabled]="false"
+    [hideOnOutsideClick]="true"
+    [showCloseButton]="true"
+    [(visible)]="isDeletePopupVisible">
+    <div class="p-3 text-center">
+      <p>Are you sure you want to delete the selected ship?</p>
+      <div class="d-flex justify-content-center gap-4 mt-5">
+        <button
+          type="button"
+          class="btn btn-dark d-flex align-items-center justify-content-center px-4"
+          (click)="confirmDelete()">
+          Delete
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary d-flex align-items-center justify-content-center px-4"
+          (click)="cancelDelete()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </dx-popup>
 </div>

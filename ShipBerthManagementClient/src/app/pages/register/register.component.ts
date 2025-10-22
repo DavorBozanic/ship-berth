@@ -20,9 +20,9 @@ export class RegisterComponent {
   public isPasswordHidden = true;
   public copyrightInformation: string = copyrightInformation;
   public registerForm: FormGroup;
-  public registerError = '';
   public showToast = false;
-  public toastDisplayTime = 1500;
+  public toastMessage = '';
+  public toastType: 'success' | 'error' = 'success';
 
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
@@ -68,14 +68,16 @@ export class RegisterComponent {
     this.authService.register(registerRequest).subscribe({
       next: (response) => {
         if (response.success) {
+          this.toastType = "success";
+          this.toastMessage = "User registered successfully."
           this.showToast = true;
           this.registerForm.reset();
-        } else {
-          this.registerError = response.message;
         }
       },
-      error: (error) => {     
-        this.registerError = error.error.message;
+      error: (error) => {
+        this.toastType = "error";
+        this.toastMessage = error.error.message;
+        this.showToast = true;
       }
     });
   }

@@ -48,7 +48,7 @@ namespace ShipBerth.Infrastructure.Repositories
         }
 
         /// <summary>
-        /// Gets all users asynchronous.
+        /// Gets all users asynchronously.
         /// </summary>
         /// <returns>List of users.</returns>
         public async Task<List<User>> GetAllUsersAsync()

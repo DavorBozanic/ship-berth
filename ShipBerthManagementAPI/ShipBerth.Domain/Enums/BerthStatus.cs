@@ -18,10 +18,5 @@ namespace ShipBerth.Domain.Enums
         /// The occupied status.
         /// </summary>
         Occupied = 2,
-
-        /// <summary>
-        /// The reserved status.
-        /// </summary>
-        Reserved = 3,
     }
 }

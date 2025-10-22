@@ -16,7 +16,7 @@ export class ShipService {
     return this.http.get<ShipDTO[]>(`${this.apiUrl}`).pipe(
       catchError((error) => {
         console.error('Error fetching ships:', error);
-        
+
         return throwError(() => new Error('Failed to fetch ships.'));
       })
     );
@@ -32,8 +32,8 @@ export class ShipService {
     );
   }
 
-  public createShip(shipDto: ShipDTO): Observable<ShipDTO> {
-    return this.http.post<ShipDTO>(this.apiUrl, shipDto).pipe(
+  public createShip(shipDTO: ShipDTO): Observable<ShipDTO> {
+    return this.http.post<ShipDTO>(this.apiUrl, shipDTO).pipe(
       catchError((error) => {
         console.error('Error creating ship:', error);
 

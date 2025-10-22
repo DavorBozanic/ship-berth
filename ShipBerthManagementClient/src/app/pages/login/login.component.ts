@@ -6,11 +6,12 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { LoginRequestDTO } from '../../services/models/LoginRequestDTO';
 import { trimFormValues } from '../../common/helpers/form-utility';
+import { DxToastModule } from 'devextreme-angular';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, DxToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   public isPasswordHidden = true;
   public copyrightInformation: string = copyrightInformation;
   public loginForm: FormGroup;
-  public authError = '';
+  public showToast = false;
+  public toastMessage = '';
 
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
@@ -43,7 +45,8 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (error) => {     
-        this.authError = error.error.message;
+        this.toastMessage = error.error.message;
+        this.showToast = true;
       }
     });
   }
