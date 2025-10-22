@@ -94,7 +94,6 @@ namespace ShipBerth.Infrastructure.Services
                 Name = berthDto.Name,
                 Location = berthDto.Location,
                 MaxShipSize = berthDto.MaxShipSize,
-                Status = berthDto.Status,
                 CreatedByUserId = berthDto.CreatedByUserId,
             };
 
