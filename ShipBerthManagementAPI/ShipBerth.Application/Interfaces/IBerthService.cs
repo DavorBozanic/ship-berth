@@ -29,7 +29,7 @@ namespace ShipBerth.Application.Interfaces
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Berth.</returns>
-        Task<BerthDetailDTO> GetBerthAsync(int id);
+        Task<BerthDTO> GetBerthAsync(int id);
 
         /// <summary>
         /// Creates the berth asynchronously.
@@ -46,5 +46,12 @@ namespace ShipBerth.Application.Interfaces
         /// <param name="end">The end.</param>
         /// <returns>True or false, whether berth is available.</returns>
         Task<bool> IsBerthAvailableAsync(int berthId, DateTime start, DateTime end);
+
+        /// <summary>
+        /// Deletes the berth asynchronously.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>True or false, whether berth is deleted.</returns>
+        Task<bool> DeleteBerthAsync(int id);
     }
 }

@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { DxButtonModule, DxDataGridModule, DxPopupModule, DxTemplateModule, DxToastModule } from 'devextreme-angular';
 import { BerthDTO } from '../models/BerthDTO';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { shipSizeRegex } from '../../common/constants/regex';
 import { CommonModule } from '@angular/common';
 import { trimFormValues } from '../../common/helpers/form-utility';
 import { BerthService } from '../../services/berth.service';
@@ -33,8 +32,7 @@ export class BerthComponent implements OnInit {
     this.berthForm = this.formBuilder.group({
       name: ['', Validators.required],
       location: ['', Validators.required],
-      size: ['', [Validators.required, Validators.pattern(shipSizeRegex)]],
-      type: ['', Validators.required],
+      maxShipSize: ['', [Validators.required, Validators.max(100)]],
     });
   }
 

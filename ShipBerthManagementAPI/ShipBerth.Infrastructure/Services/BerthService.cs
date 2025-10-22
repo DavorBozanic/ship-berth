@@ -61,7 +61,7 @@ namespace ShipBerth.Infrastructure.Services
         /// <param name="id">The identifier.</param>
         /// <returns>Berth.</returns>
         /// <exception cref="KeyNotFoundException">Berth with ID {id} not found.</exception>
-        public async Task<BerthDetailDTO> GetBerthAsync(int id)
+        public async Task<BerthDTO> GetBerthAsync(int id)
         {
             var berth = await this.berthRepository.GetByIdAsync(id);
 
@@ -70,7 +70,7 @@ namespace ShipBerth.Infrastructure.Services
                 throw new KeyNotFoundException($"Berth with ID {id} not found.");
             }
 
-            return new BerthDetailDTO
+            return new BerthDTO
             {
                 Id = berth.Id,
                 Name = berth.Name,
@@ -92,6 +92,10 @@ namespace ShipBerth.Infrastructure.Services
             var berth = new Berth
             {
                 Name = berthDto.Name,
+                Location = berthDto.Location,
+                MaxShipSize = berthDto.MaxShipSize,
+                Status = berthDto.Status,
+                CreatedByUserId = berthDto.CreatedByUserId,
             };
 
             await this.berthRepository.AddBerthAsync(berth);
@@ -149,6 +153,19 @@ namespace ShipBerth.Infrastructure.Services
             var conflictingReservations = await this.reservationRepository.GetReservationsForBerthAsync(berthId, start, end);
 
             return conflictingReservations.Count == 0;
+        }
+
+        /// <summary>
+        /// Deletes the berth asynchronously.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>True or false, whether berth is deleted.</returns>
+        public async Task<bool> DeleteBerthAsync(int id)
+        {
+            await this.berthRepository.DeleteBerthAsync(id);
+            await this.berthRepository.SaveChangesAsync();
+
+            return true;
         }
 
         private BerthDTO MapToBerthDTO(Berth berth)

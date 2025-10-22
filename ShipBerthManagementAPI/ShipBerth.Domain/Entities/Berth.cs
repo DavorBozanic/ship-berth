@@ -43,7 +43,7 @@ namespace ShipBerth.Domain.Entities
         /// <value>
         /// The status.
         /// </value>
-        public BerthStatus Status { get; set; }
+        public BerthStatus Status { get; set; } = BerthStatus.Available;
 
         /// <summary>
         /// Gets or sets the docking records.

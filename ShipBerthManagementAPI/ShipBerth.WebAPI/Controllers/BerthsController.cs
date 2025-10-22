@@ -35,31 +35,21 @@ namespace ShipBerth.WebAPI.Controllers
         /// <summary>
         /// Gets the berths.
         /// </summary>
-        /// <param name="berthSearchDto">The berth search dto.</param>
         /// <returns>Action result with list of berths.</returns>
         [HttpGet]
-        public async Task<ActionResult<List<BerthDTO>>> GetBerths([FromQuery] BerthSearchDTO berthSearchDto)
+        public async Task<ActionResult<List<BerthDTO>>> GetBerths()
         {
             try
             {
-                List<BerthDTO> berths;
+                var berths = await this.berthService.GetAllBerthsAsync();
 
-                if (HasSearchParameters(berthSearchDto))
-                {
-                    berths = await this.berthService.SearchBerthsAsync(berthSearchDto);
-                }
-                else
-                {
-                    berths = await this.berthService.GetAllBerthsAsync();
-                }
-
-                this.logger.LogInformation("Retrieved {BerthCount} berths.", berths.Count);
+                this.logger.LogInformation("Retrieved {BerthCount} berth.", berths.Count);
 
                 return this.Ok(berths);
             }
             catch (Exception ex)
             {
-                this.logger.LogError(ex, "Error fetching berths with search: {@Search}.", berthSearchDto);
+                this.logger.LogError(ex, "Error fetching berth.");
 
                 return this.BadRequest(new { message = "An error occurred while fetching berths.", error = ex.Message });
             }
@@ -71,7 +61,7 @@ namespace ShipBerth.WebAPI.Controllers
         /// <param name="id">The identifier.</param>
         /// <returns>Action result with berth.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<BerthDetailDTO>> GetBerth(int id)
+        public async Task<ActionResult<BerthDTO>> GetBerth(int id)
         {
             try
             {
@@ -145,11 +135,34 @@ namespace ShipBerth.WebAPI.Controllers
             }
         }
 
-        private static bool HasSearchParameters(BerthSearchDTO searchDto)
+        /// <summary>
+        /// Deletes the berth.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Action result.</returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBerth(int id)
         {
-            return !string.IsNullOrEmpty(searchDto.Location) ||
-                   searchDto.MinSize.HasValue ||
-                   !string.IsNullOrEmpty(searchDto.Status);
+            try
+            {
+                await this.berthService.DeleteBerthAsync(id);
+
+                this.logger.LogInformation("Berth deleted successfully: {BerthId}.", id);
+
+                return this.NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                this.logger.LogWarning("Berth not found for deletion: {BerthId}.", id);
+
+                return this.NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex, "Error deleting berth {BerthId}.", id);
+
+                return this.BadRequest(new { message = "An error occurred while deleting berth.", error = ex.Message });
+            }
         }
     }
 }

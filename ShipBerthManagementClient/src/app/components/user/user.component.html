@@ -8,8 +8,7 @@
     <dx-data-grid
       [dataSource]="users"
       [showBorders]="true"
-      [paging]="{ pageSize: 10 }"
-      [pager]="{ showPageSizeSelector: true, allowedPageSizes: [5, 10, 20] }">
+      [paging]="{ enabled: false }">
       <dxi-column dataField="firstName" caption="First name"></dxi-column>
       <dxi-column dataField="lastName" caption="Last name"></dxi-column>
       <dxi-column dataField="username" caption="Username"></dxi-column>

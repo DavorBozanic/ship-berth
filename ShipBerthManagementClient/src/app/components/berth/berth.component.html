@@ -23,11 +23,10 @@
       <dx-data-grid
         [dataSource]="berths"
         [showBorders]="true"
-        [paging]="{ enabled: false }"
-        [pager]="{ showPageSizeSelector: true, allowedPageSizes: [5, 10, 20] }">
+        [paging]="{ enabled: false }">
         <dxi-column dataField="name" caption="Name"></dxi-column>
-        <dxi-column dataField="size" caption="Size (in meters)"></dxi-column>
-        <dxi-column dataField="type" caption="Type"></dxi-column>
+        <dxi-column dataField="location" caption="Location"></dxi-column>
+        <dxi-column dataField="maxShipSize" caption="Max ship size (meters)"></dxi-column>     
         <dxi-column dataField="createdAt" caption="Created at" dataType="date" format="dd.MM.yyyy. HH:mm"></dxi-column>
         <dxi-column caption="Edit" [width]="100" alignment="center" cellTemplate="editCell"></dxi-column>
         <dxi-column caption="Delete" [width]="100" alignment="center" cellTemplate="deleteCell"></dxi-column>
@@ -90,42 +89,26 @@
             </div>
             </div>
             <div class="mb-3">
-              <label for="size" class="form-label">Maximum ship size (meters)</label>
+              <label for="maxShipSize" class="form-label">Maximum ship size (meters)</label>
               <input
                 type="number"
                 class="form-control"
-                id="size"
-                formControlName="size"
+                id="maxShipSize"
+                formControlName="maxShipSize"
                 inputmode="decimal"
                 step="0.1"
-                placeholder="Ship size"/>
+                placeholder="Maximum ship size"/>
               <div class="invalid-feedback d-block"
                 *ngIf="
-                  berthForm.get('size')?.invalid &&
-                  (berthForm.get('size')?.touched ||
-                  berthForm.get('size')?.dirty)">
-                <div *ngIf="berthForm.get('size')?.hasError('required')">
+                  berthForm.get('maxShipSize')?.invalid &&
+                  (berthForm.get('maxShipSize')?.touched ||
+                  berthForm.get('maxShipSize')?.dirty)">
+                <div *ngIf="berthForm.get('maxShipSize')?.hasError('required')">
                   Field is required
                 </div>
-                <div *ngIf="berthForm.get('size')?.hasError('pattern')">
-                  Minimum size is 5 meters, maximum is 100 meters, increments of 0.1
+                <div *ngIf="berthForm.get('maxShipSize')?.hasError('max')">
+                  Maximum ship size is 100 meters
                 </div>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="type" class="form-label">Type</label>
-              <input
-                type="text"
-                class="form-control"
-                id="type"
-                formControlName="type"
-                placeholder="Ship type"/>
-              <div class="invalid-feedback d-block"
-                *ngIf="
-                  berthForm.get('type')?.invalid &&
-                  (berthForm.get('type')?.touched ||
-                  berthForm.get('type')?.dirty)">
-                Field is required
               </div>
             </div>
             <button
@@ -159,7 +142,7 @@
     [showCloseButton]="true"
     [(visible)]="isDeletePopupVisible">
     <div class="p-3 text-center">
-      <p>Are you sure you want to delete the selected ship?</p>
+      <p>Are you sure you want to delete the selected berth?</p>
       <div class="d-flex justify-content-center gap-4 mt-5">
         <button
           type="button"
