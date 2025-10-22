@@ -42,7 +42,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <returns>List of ships.</returns>
         public async Task<List<Ship>> GetAllAsync()
         {
-            return await this.context.Ships.ToListAsync();
+            return await this.context.Ships.Where(s => s.IsDeleted == false).ToListAsync();
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ShipBerth.Infrastructure.Repositories
         public async Task<List<Ship>> GetShipsByTypeAsync(string shipType)
         {
             return await this.context.Ships
-                .Where(s => s.Type.ToString() == shipType)
+                .Where(s => s.Type.ToString() == shipType && s.IsDeleted == false)
                 .ToListAsync();
         }
 

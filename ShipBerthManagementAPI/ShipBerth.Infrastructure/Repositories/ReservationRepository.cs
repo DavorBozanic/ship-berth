@@ -48,7 +48,8 @@ namespace ShipBerth.Infrastructure.Repositories
             return await this.context.Reservations
                 .Where(r => r.BerthId == berthId &&
                            r.ScheduledArrival <= end &&
-                           r.ScheduledDeparture >= start)
+                           r.ScheduledDeparture >= start &&
+                           r.IsDeleted == false)
                 .ToListAsync();
         }
 

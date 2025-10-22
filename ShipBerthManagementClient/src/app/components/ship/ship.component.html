@@ -1,47 +1,72 @@
 <div class="tab-container p-3 mt-3 mx-3">
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active text-dark" data-bs-toggle="tab" href="#ships-tab">Ships</a>
+      <button
+        class="nav-link text-dark"
+        [class.active]="activeTab === 'ships'"
+        (click)="activeTab = 'ships'">
+        Ships
+    </button>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-dark" data-bs-toggle="tab" href="#new-tab">New</a>
+      <button
+        class="nav-link text-dark"
+        [class.active]="activeTab === 'new'"
+        (click)="activeTab = 'new'">
+        New
+    </button>
     </li>
   </ul>
   <div class="tab-content mt-3 p-3">
-    <div class="tab-pane fade show active" id="ships-tab">
+    <div
+      class="tab-pane fade"
+      [class.show]="activeTab === 'ships'"
+      [class.active]="activeTab === 'ships'"
+      id="ships-tab">
       <dx-data-grid
         [dataSource]="ships"
         [showBorders]="true"
-        [paging]="{ pageSize: 10 }"
+        [paging]="{ enabled: false }"
         [pager]="{ showPageSizeSelector: true, allowedPageSizes: [5, 10, 20] }">
         <dxi-column dataField="name" caption="Name"></dxi-column>
-        <dxi-column dataField="size" caption="Size"></dxi-column>
+        <dxi-column dataField="size" caption="Size (in meters)"></dxi-column>
         <dxi-column dataField="type" caption="Type"></dxi-column>
+        <dxi-column dataField="createdAt" caption="Created at" dataType="date" format="dd.MM.yyyy. HH:mm"></dxi-column>
+        <dxi-column type="buttons" caption="Edit" [width]="80">
+          <dxi-button name="editCustom" [hint]="'Edit'" icon="edit" [onClick]="onEdit"></dxi-button>
+        </dxi-column>
+        <dxi-column type="buttons" caption="Delete" [width]="80">
+          <dxi-button name="deleteCustom" style="background-color: black !important" [hint]="'Delete'" icon="remove" [onClick]="onDelete"></dxi-button>
+        </dxi-column>
       </dx-data-grid>
     </div>
-    <div class="tab-pane fade" id="new-tab">
+    <div
+      class="tab-pane fade"
+      [class.show]="activeTab === 'new'"
+      [class.active]="activeTab === 'new'"
+      id="new-tab">
       <div class="card">
         <div class="card-header">
           <h5 class="card-title mb-0">Add new ship</h5>
         </div>
         <div class="card-body">
-          <form [formGroup]="shipForm">
+          <form [formGroup]="shipForm" (ngSubmit)="onSave()">
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  formControlName="name"
-                  placeholder="Ship name">
-            <div class="invalid-feedback d-block"
-              *ngIf="
-                (shipForm.get('name')?.touched &&
-                shipForm.get('name')?.invalid) ||
-                (shipForm.get('name')?.dirty &&
-                shipForm.get('name')?.invalid)">
-              Field is required
-            </div>
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                placeholder="Ship name"/>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  shipForm.get('name')?.invalid &&
+                  (shipForm.get('name')?.touched ||
+                    shipForm.get('name')?.dirty)">
+                Field is required
+              </div>
             </div>
             <div class="mb-3">
               <label for="size" class="form-label">Ship size (meters)</label>
@@ -52,20 +77,20 @@
                 formControlName="size"
                 inputmode="decimal"
                 step="0.1"
-                placeholder="Ship size">
-            <div class="invalid-feedback d-block"
-              *ngIf="
-                (shipForm.get('size')?.touched &&
-                shipForm.get('size')?.invalid) ||
-                (shipForm.get('size')?.dirty &&
-                shipForm.get('size')?.invalid)">
-              <div *ngIf="shipForm.get('size')?.hasError('required')">
-                Field is required
+                placeholder="Ship size"/>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  shipForm.get('size')?.invalid &&
+                  (shipForm.get('size')?.touched ||
+                    shipForm.get('size')?.dirty)">
+                <div *ngIf="shipForm.get('size')?.hasError('required')">
+                  Field is required
+                </div>
+                <div *ngIf="shipForm.get('size')?.hasError('pattern')">
+                  Minimum size is 5 meters, maximum is 100 meters, increments of 0.1
+                </div>
               </div>
-              <div *ngIf="shipForm.get('size')?.hasError('pattern')">
-                Minimum size is 5 meters, maximum is 100 meters
-              </div>
-            </div>
             </div>
             <div class="mb-3">
               <label for="type" class="form-label">Type</label>
@@ -74,20 +99,35 @@
                 class="form-control"
                 id="type"
                 formControlName="type"
-                placeholder="Ship type">
-             <div class="invalid-feedback d-block"
-              *ngIf="
-                (shipForm.get('type')?.touched &&
-                shipForm.get('type')?.invalid) ||
-                (shipForm.get('type')?.dirty &&
-                shipForm.get('type')?.invalid)">
-              Field is required
+                placeholder="Ship type"/>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="
+                  shipForm.get('type')?.invalid &&
+                  (shipForm.get('type')?.touched ||
+                    shipForm.get('type')?.dirty)">
+                Field is required
+              </div>
             </div>
-            </div>
-            <button type="submit" class="btn btn-dark" [disabled]="!shipForm.valid" (click)="onSave()">Save</button>
+            <button
+              type="submit"
+              class="btn btn-dark"
+              [disabled]="!shipForm.valid">
+              Save
+            </button>
           </form>
         </div>
       </div>
     </div>
   </div>
+  <dx-toast
+    [visible]="showToast"
+    message="Ship created successfully!"
+    type="success"
+    [displayTime]="toastDisplayTime"
+    [width]="250"
+    [height]="50"
+    position="bottom center"
+    (onHidden)="showToast = false">
+  </dx-toast>
 </div>

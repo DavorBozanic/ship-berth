@@ -7,11 +7,12 @@ import { BackButtonDirective } from '../../common/directives/back-button.directi
 import { RegisterRequestDTO } from '../../services/models/RegisterRequestDTO';
 import { emailRegex, passwordRegex, usernameRegex } from '../../common/constants/regex';
 import { trimFormValues } from '../../common/helpers/form-utility';
+import { DxToastModule } from 'devextreme-angular';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, BackButtonDirective],
+  imports: [CommonModule, ReactiveFormsModule, BackButtonDirective, DxToastModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -19,8 +20,9 @@ export class RegisterComponent {
   public isPasswordHidden = true;
   public copyrightInformation: string = copyrightInformation;
   public registerForm: FormGroup;
-  public registerSuccess = '';
   public registerError = '';
+  public showToast = false;
+  public toastDisplayTime = 1500;
 
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
@@ -66,7 +68,8 @@ export class RegisterComponent {
     this.authService.register(registerRequest).subscribe({
       next: (response) => {
         if (response.success) {
-          this.registerSuccess = response.message;
+          this.showToast = true;
+          this.registerForm.reset();
         } else {
           this.registerError = response.message;
         }

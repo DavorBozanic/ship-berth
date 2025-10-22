@@ -45,7 +45,7 @@ namespace ShipBerth.Infrastructure.Repositories
         /// <returns>List of berths.</returns>
         public async Task<List<Berth>> GetAllAsync()
         {
-            return await this.context.Berths.ToListAsync();
+            return await this.context.Berths.Where(b => b.IsDeleted == false).ToListAsync();
         }
 
         /// <summary>
