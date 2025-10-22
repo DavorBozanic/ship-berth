@@ -26,7 +26,17 @@
         [paging]="{ enabled: false }">
         <dxi-column dataField="name" caption="Name"></dxi-column>
         <dxi-column dataField="location" caption="Location"></dxi-column>
-        <dxi-column dataField="maxShipSize" caption="Max ship size (meters)"></dxi-column>     
+        <dxi-column dataField="maxShipSize" caption="Max ship size (meters)"></dxi-column>
+        <dxi-column
+          dataField="status"
+          caption="Status"
+          [lookup]="{
+              dataSource: berthStatuses,
+              valueExpr: 'id',
+              displayExpr: 'name'
+          }"
+          [allowEditing]="false">
+        </dxi-column>
         <dxi-column dataField="createdAt" caption="Created at" dataType="date" format="dd.MM.yyyy. HH:mm"></dxi-column>
         <dxi-column caption="Edit" [width]="100" alignment="center" cellTemplate="editCell"></dxi-column>
         <dxi-column caption="Delete" [width]="100" alignment="center" cellTemplate="deleteCell"></dxi-column>

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { trimFormValues } from '../../common/helpers/form-utility';
 import { BerthService } from '../../services/berth.service';
 import { catchError, of } from 'rxjs';
+import { BerthStatus } from '../enums/berth-status';
 
 @Component({
   selector: 'app-berth',
@@ -22,6 +23,11 @@ export class BerthComponent implements OnInit {
   public toastType: 'success' | 'error' = 'success';
   public activeTab: 'berths' | 'new' = 'berths';
   public isDeletePopupVisible = false;
+
+  public berthStatuses = [
+    { id: BerthStatus.Available, name: 'Available' },
+    { id: BerthStatus.Occupied, name: 'Occupied' }
+  ];
 
   private selectedBerthId: number | undefined;
 
