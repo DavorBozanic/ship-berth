@@ -94,7 +94,7 @@ namespace ShipBerth.Infrastructure.Services
             existingShip.Name = shipDto.Name;
             existingShip.Size = shipDto.Size;
             existingShip.Type = shipDto.Type;
-            existingShip.UpdatedAt = DateTime.UtcNow;
+            existingShip.UpdatedAt = DateTime.Now;
 
             await this.shipRepository.UpdateShipAsync(existingShip);
             await this.shipRepository.SaveChangesAsync();

@@ -23,8 +23,10 @@ export class ShipComponent implements OnInit {
   public toastType: 'success' | 'error' = 'success';
   public activeTab: 'ships' | 'new' = 'ships';
   public isDeletePopupVisible = false;
+  public isEditMode = false;
 
-  private selectedShipId: number | undefined;
+  public editingShipId: number | null = null;
+  private selectedShipId: number | null = null;
 
   private formBuilder = inject(FormBuilder);
   private shipService = inject(ShipService);
@@ -41,6 +43,13 @@ export class ShipComponent implements OnInit {
     this.loadShips();
   }
 
+  public switchToShips(): void {
+    this.activeTab = 'ships';
+    this.isEditMode = false;
+    this.editingShipId = null;
+    this.shipForm.reset();
+  }
+
   private loadShips(): void {
     this.shipService.getShips()
       .pipe(
@@ -54,14 +63,24 @@ export class ShipComponent implements OnInit {
       });
   }
 
-  public onEdit(): void {
-    console.log();
+  public onEdit(ship: ShipDTO): void {
+    this.isEditMode = true;
+    this.editingShipId = ship.id ?? null;
+
+    this.shipForm.patchValue({
+      name: ship.name,
+      size: ship.size,
+      type: ship.type
+    });
+
+    this.activeTab = 'new';
   }
 
   public onDelete(data: ShipDTO): void {
     const ship = data;
+    
     if (ship) {
-        this.selectedShipId = ship.id;
+        this.selectedShipId = ship.id ?? null;
         this.isDeletePopupVisible = true;
     }
   }
@@ -91,29 +110,45 @@ export class ShipComponent implements OnInit {
     this.isDeletePopupVisible = false;
   }
 
-  public onPopupHiding(): void {
-    this.cancelDelete();
-  }
-
   public onSave(): void {
     trimFormValues(this.shipForm);
     
     const ship: ShipDTO = this.shipForm.value;
-
-    this.shipService.createShip(ship).subscribe({
-      next: () => {
-        this.toastType = "success";
-        this.toastMessage = 'Ship created successfully.'
-        this.showToast = true;
-        this.shipForm.reset();
-        this.loadShips();
-        this.activeTab = 'ships';
-      },
-      error: (error) => {     
-        this.toastType = "error";
-        this.toastMessage = error.error.message;
-        this.showToast = true;
-      }
-    });
+    
+    if (this.isEditMode && this.editingShipId) {
+      this.shipService.updateShip(this.editingShipId, ship).subscribe({
+        next: () => {
+          this.toastType = 'success';
+          this.toastMessage = 'Ship updated successfully.';
+          this.showToast = true;
+          this.shipForm.reset();
+          this.loadShips();
+          this.activeTab = 'ships';
+          this.isEditMode = false;
+          this.editingShipId = null;
+        },
+        error: (error) => {
+          this.toastType = 'error';
+          this.toastMessage = error.error.message;
+          this.showToast = true;
+        }
+      });
+    } else {
+      this.shipService.createShip(ship).subscribe({
+        next: () => {
+          this.toastType = 'success';
+          this.toastMessage = 'Ship created successfully.';
+          this.showToast = true;
+          this.shipForm.reset();
+          this.loadShips();
+          this.activeTab = 'ships';
+        },
+        error: (error) => {
+          this.toastType = 'error';
+          this.toastMessage = error.error.message;
+          this.showToast = true;
+        }
+      });
+    }
   }
 }

@@ -122,10 +122,9 @@ namespace ShipBerth.Infrastructure.Services
             existingBerth.Name = berthDto.Name;
             existingBerth.Location = berthDto.Location;
             existingBerth.MaxShipSize = berthDto.MaxShipSize;
-            existingBerth.Status = berthDto.Status;
             existingBerth.Reservations = berthDto.Reservations;
             existingBerth.DockingRecords = berthDto.DockingRecords;
-            existingBerth.UpdatedAt = DateTime.UtcNow;
+            existingBerth.UpdatedAt = DateTime.Now;
 
             await this.berthRepository.UpdateBerthAsync(existingBerth);
             await this.berthRepository.SaveChangesAsync();

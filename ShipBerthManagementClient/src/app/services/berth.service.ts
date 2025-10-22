@@ -40,8 +40,18 @@ export class BerthService {
         return throwError(() => new Error('Failed to create berth.'));
       })
     );
-  } 
+  }
 
+  public updateBerth(berthId: number, berthDTO: BerthDTO): Observable<BerthDTO> {
+    return this.http.put<BerthDTO>(`${this.apiUrl}/${berthId}`, berthDTO).pipe(
+      catchError((error) => {
+        console.error('Error updating berth:', error);
+
+        return throwError(() => new Error('Failed to update berth.'));
+      })
+    );
+  }
+  
   public deleteBerth(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError((error) => {

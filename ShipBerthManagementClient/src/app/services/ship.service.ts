@@ -40,7 +40,17 @@ export class ShipService {
         return throwError(() => new Error('Failed to create ship.'));
       })
     );
-  } 
+  }
+
+  public updateShip(shipId: number, shipDTO: ShipDTO): Observable<ShipDTO> {
+    return this.http.put<ShipDTO>(`${this.apiUrl}/${shipId}`, shipDTO).pipe(
+      catchError((error) => {
+        console.error('Error updating ship:', error);
+
+        return throwError(() => new Error('Failed to update ship.'));
+      })
+    );
+  }
 
   public deleteShip(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(

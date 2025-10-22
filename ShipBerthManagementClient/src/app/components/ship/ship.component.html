@@ -3,16 +3,16 @@
     <li class="nav-item">
       <button class="nav-link text-dark"
         [class.active]="activeTab === 'ships'"
-        (click)="activeTab = 'ships'">
+        (click)="switchToShips()">
         Ships
-    </button>
+      </button>
     </li>
     <li class="nav-item">
       <button class="nav-link text-dark"
         [class.active]="activeTab === 'new'"
-        (click)="activeTab = 'new'">
-        New
-    </button>
+        (click)="activeTab = 'new'; isEditMode = false; editingShipId = null">
+        {{ isEditMode ? 'Edit' : 'New' }}
+      </button>
     </li>
   </ul>
   <div class="tab-content mt-3 p-3">
@@ -32,7 +32,7 @@
         <dxi-column caption="Delete" [width]="100" alignment="center" cellTemplate="deleteCell"></dxi-column>
         <div *dxTemplate="let cell of 'editCell'">
           <button class="btn btn-sm btn-light text-dark"
-              (click)="onEdit()"
+              (click)="onEdit(cell.data)"
               title="Edit">
             <i class="bi bi-pencil-fill"></i>
           </button>
@@ -52,7 +52,7 @@
       id="new-tab">
       <div class="card">
         <div class="card-header">
-          <h5 class="card-title mb-0">Add new ship</h5>
+          <h5 class="card-title mb-0"> {{ isEditMode ? 'Edit ship' : 'Add new ship' }}</h5>
         </div>
         <div class="card-body">
           <form [formGroup]="shipForm" (ngSubmit)="onSave()">
@@ -127,7 +127,7 @@
     [message]="toastMessage"
     [type]="toastType"
     [displayTime]="1300"
-    [width]="250"
+    [width]="300"
     [height]="50"
     position="bottom center"
     (onHidden)="showToast = false">

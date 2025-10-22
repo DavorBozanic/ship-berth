@@ -136,6 +136,37 @@ namespace ShipBerth.WebAPI.Controllers
         }
 
         /// <summary>
+        /// Updates the berth.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="berthDto">The berth dto.</param>
+        /// <returns>Action result with berth.</returns>
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BerthDTO>> UpdateBerth(int id, BerthDTO berthDto)
+        {
+            try
+            {
+                var berth = await this.berthService.UpdateBerthAsync(id, berthDto);
+
+                this.logger.LogInformation("Berth updated successfully: {BerthId}.", id);
+
+                return this.Ok(berth);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                this.logger.LogWarning("Berth not found for update: {BerthId}.", id);
+
+                return this.NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex, "Error updating berth {BerthId}.", id);
+
+                return this.BadRequest(new { message = "An error occurred while updating berth.", error = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Deletes the berth.
         /// </summary>
         /// <param name="id">The identifier.</param>

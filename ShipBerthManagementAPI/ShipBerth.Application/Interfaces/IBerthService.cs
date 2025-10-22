@@ -39,6 +39,14 @@ namespace ShipBerth.Application.Interfaces
         Task<BerthDTO> CreateBerthAsync(BerthDTO berthDto);
 
         /// <summary>
+        /// Updates the berth asynchronously.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="berthDto">The berth dto.</param>
+        /// <returns>Berth.</returns>
+        Task<BerthDTO> UpdateBerthAsync(int id, BerthDTO berthDto);
+
+        /// <summary>
         /// Determines whether [is berth available asynchronously] [the specified berth identifier].
         /// </summary>
         /// <param name="berthId">The berth identifier.</param>

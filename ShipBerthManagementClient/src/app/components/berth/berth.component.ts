@@ -23,13 +23,15 @@ export class BerthComponent implements OnInit {
   public toastType: 'success' | 'error' = 'success';
   public activeTab: 'berths' | 'new' = 'berths';
   public isDeletePopupVisible = false;
+  public isEditMode = false;
 
   public berthStatuses = [
     { id: BerthStatus.Available, name: 'Available' },
     { id: BerthStatus.Occupied, name: 'Occupied' }
   ];
 
-  private selectedBerthId: number | undefined;
+  public editingBerthId: number | null = null;
+  private selectedBerthId: number | null = null;
 
   private formBuilder = inject(FormBuilder);
   private berthService = inject(BerthService);
@@ -46,6 +48,13 @@ export class BerthComponent implements OnInit {
     this.loadBerths();
   }
 
+  public switchToBerths(): void {
+    this.activeTab = 'berths';
+    this.isEditMode = false;
+    this.editingBerthId = null;
+    this.berthForm.reset();
+  }
+
   private loadBerths(): void {
     this.berthService.getBerths()
       .pipe(
@@ -59,14 +68,24 @@ export class BerthComponent implements OnInit {
       });
   }
 
-  public onEdit(): void {
-    console.log();
-  }
+  public onEdit(berth: BerthDTO): void {
+    this.isEditMode = true;
+    this.editingBerthId = berth.id ?? null;
 
+    this.berthForm.patchValue({
+      name: berth.name,
+      location: berth.location,
+      maxShipSize: berth.maxShipSize
+    });
+
+    this.activeTab = 'new';
+  }
+  
   public onDelete(data: BerthDTO): void {
     const berth = data;
+    
     if (berth) {
-        this.selectedBerthId = berth.id;
+        this.selectedBerthId = berth.id ?? null;
         this.isDeletePopupVisible = true;
     }
   }
@@ -96,29 +115,45 @@ export class BerthComponent implements OnInit {
     this.isDeletePopupVisible = false;
   }
 
-  public onPopupHiding(): void {
-    this.cancelDelete();
-  }
-
   public onSave(): void {
     trimFormValues(this.berthForm);
     
     const berth: BerthDTO = this.berthForm.value;
 
-    this.berthService.createBerth(berth).subscribe({
-      next: () => {
-        this.toastType = "success";
-        this.toastMessage = 'Berth created successfully.'
-        this.showToast = true;
-        this.berthForm.reset();
-        this.loadBerths();
-        this.activeTab = 'berths';
-      },
-      error: (error) => {     
-        this.toastType = "error";
-        this.toastMessage = error.error.message;
-        this.showToast = true;
-      }
-    });
+    if (this.isEditMode && this.editingBerthId) {
+      this.berthService.updateBerth(this.editingBerthId, berth).subscribe({
+        next: () => {
+          this.toastType = 'success';
+          this.toastMessage = 'Berth updated successfully.';
+          this.showToast = true;
+          this.berthForm.reset();
+          this.loadBerths();
+          this.activeTab = 'berths';
+          this.isEditMode = false;
+          this.editingBerthId = null;
+        },
+        error: (error) => {
+          this.toastType = 'error';
+          this.toastMessage = error.error.message;
+          this.showToast = true;
+        }
+      });
+    } else {
+      this.berthService.createBerth(berth).subscribe({
+        next: () => {
+          this.toastType = 'success';
+          this.toastMessage = 'Berth created successfully.';
+          this.showToast = true;
+          this.berthForm.reset();
+          this.loadBerths();
+          this.activeTab = 'berths';
+        },
+        error: (error) => {
+          this.toastType = 'error';
+          this.toastMessage = error.error.message;
+          this.showToast = true;
+        }
+      });
+    }
   }
 }
