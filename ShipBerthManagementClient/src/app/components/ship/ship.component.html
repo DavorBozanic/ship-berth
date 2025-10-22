@@ -31,16 +31,12 @@
         <dxi-column caption="Edit" [width]="100" alignment="center" cellTemplate="editCell"></dxi-column>
         <dxi-column caption="Delete" [width]="100" alignment="center" cellTemplate="deleteCell"></dxi-column>
         <div *dxTemplate="let cell of 'editCell'">
-          <button class="btn btn-sm btn-light text-dark"
-              (click)="onEdit(cell.data)"
-              title="Edit">
+          <button type="button" class="btn btn-link p-0 text-dark" (click)="onEdit(cell.data)" title="Edit">
             <i class="bi bi-pencil-fill"></i>
           </button>
         </div>
         <div *dxTemplate="let cell of 'deleteCell'">
-          <button class="btn btn-sm btn-light text-dark"
-              (click)="onDelete(cell.data)"
-              title="Delete">
+          <button type="button" class="btn btn-link p-0 text-dark" (click)="onDelete(cell.data)" title="Delete">
             <i class="bi bi-trash-fill"></i>
           </button>
         </div>

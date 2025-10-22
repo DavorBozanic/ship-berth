@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { copyrightInformation } from '../../common/constants/copyright';
 
 @Component({
   selector: 'app-reservation',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './reservation.component.css'
 })
 export class ReservationComponent {
-
+  public copyrightInformation: string = copyrightInformation;
 }
