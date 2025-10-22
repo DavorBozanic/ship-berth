@@ -12,8 +12,8 @@ using ShipBerth.Infrastructure.Data;
 namespace ShipBerth.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251019122221_AlterSizePrecision")]
-    partial class AlterSizePrecision
+    [Migration("20251022201838_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,29 +280,23 @@ namespace ShipBerth.Infrastructure.Migrations
 
             modelBuilder.Entity("ShipBerth.Domain.Entities.Reservation", b =>
                 {
-                    b.HasOne("ShipBerth.Domain.Entities.Berth", "Berth")
+                    b.HasOne("ShipBerth.Domain.Entities.Berth", null)
                         .WithMany("Reservations")
                         .HasForeignKey("BerthId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShipBerth.Domain.Entities.Ship", "Ship")
+                    b.HasOne("ShipBerth.Domain.Entities.Ship", null)
                         .WithMany("Reservations")
                         .HasForeignKey("ShipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShipBerth.Domain.Entities.User", "User")
+                    b.HasOne("ShipBerth.Domain.Entities.User", null)
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Berth");
-
-                    b.Navigation("Ship");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ShipBerth.Domain.Entities.Berth", b =>

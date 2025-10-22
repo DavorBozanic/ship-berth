@@ -80,7 +80,7 @@
           <div class="input-group">
             <input
               id="inputPassword"
-              [type]="!isPasswordHidden ? 'password' : 'text'"
+              [type]="isPasswordHidden ? 'password' : 'text'"
               class="form-control"
               formControlName="password"
               placeholder="Password"
