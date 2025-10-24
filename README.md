@@ -8,8 +8,7 @@ WEB API
 4. Configure the database connection string (if needed add local user & password) for MSSQL Server in ShipBerth.WebAPI/appsettings.json ->
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Database=ShipBerthDb;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=true"
-
-  }
+}
 5. Install EF CLI if missing, execute command 'dotnet tool install --global dotnet-ef'
 6. Apply EF Core migrations by running these 2 commands:
     Create migration: execute command ->
